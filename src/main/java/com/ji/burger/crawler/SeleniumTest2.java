@@ -59,7 +59,7 @@ public class SeleniumTest2 {
 			 String burgerKingId = "jshag90@naver.com";
 			 webElement.get(0).sendKeys(burgerKingId);
 			
-			String burgerKingPw = "goffhdn90##";
+			String burgerKingPw = "####";
 			webElement.get(1).sendKeys(burgerKingPw);
 			
 //            System.out.println(driver.getPageSource());
