@@ -1,5 +1,6 @@
 package com.ji.burger.crawler;
 
+import java.util.Iterator;
 import java.util.List;
 
 import org.openqa.selenium.By;
@@ -14,6 +15,7 @@ public class SeleniumTest2 {
 
 		SeleniumTest2 selTest = new SeleniumTest2();
 		selTest.crawl();
+		
 
 	}
 
@@ -22,13 +24,14 @@ public class SeleniumTest2 {
 
 	private List<WebElement> webElement;
 	private List<WebElement> webElement2;
+	private List<WebElement> webElement3;
 
 	// Properties
 	public static final String WEB_DRIVER_ID = "webdriver.chrome.driver";
 	public static final String WEB_DRIVER_PATH = "C:/selenium/chromedriver.exe";
 
 	// 크롤링 할 URL
-	private String base_url;
+	private String base_url, base_url2;
 
 	public SeleniumTest2() {
 	        super();
@@ -45,7 +48,7 @@ public class SeleniumTest2 {
 	        base_url = "https://www.burgerking.co.kr/#/login";
 	        
 	        
-	        
+	        base_url2 = "https://www.burgerking.co.kr/#/deliveryHome";
 	    }
 
 	public void crawl() {
@@ -58,16 +61,51 @@ public class SeleniumTest2 {
 			
 			 String burgerKingId = "jshag90@naver.com";
 			 webElement.get(0).sendKeys(burgerKingId);
+			 Thread.sleep(1000);
 			
 			String burgerKingPw = "####";
 			webElement.get(1).sendKeys(burgerKingPw);
+			Thread.sleep(1000);
 			
-//            System.out.println(driver.getPageSource());
-//			Thread.sleep(20000);
+			 List<WebElement> spans = driver.findElements(By.tagName("span"));
+		     Iterator<WebElement> i = spans.iterator();
+		     
+			int index = 0;
+			while (i.hasNext()) {
+				WebElement span = i.next();
+				index++;
+				if (index == 39) {
+					Thread.sleep(1000);
+					span.click();
+					break;
+				}
+			}
+		        
+		    Thread.sleep(3000);
+		    
+		    driver.get(base_url2);
+		    Thread.sleep(3000);
+			webElement2 = driver.findElements(By.className("tit"));
+			Iterator<WebElement> ps = webElement2.iterator();
 
-			// 로그인 버튼 클릭
-//			webElement2 =  driver.findElements(By.tagName("span"));
-//			webElement2.get(4).click();
+			while (ps.hasNext()) {
+				WebElement pTag = ps.next();
+				System.out.println(pTag.getText());
+			}
+			
+			webElement3 =  driver.findElements(By.className("price"));
+			Iterator<WebElement> spanTags = webElement3.iterator();
+			
+			while (spanTags.hasNext()) {
+				WebElement span = spanTags.next();
+
+				System.out.println(span.getText());
+			}
+			
+//			driver.get("https://www.burgerking.co.kr/#/deliveryHome");
+//
+//			System.out.println(driver.getPageSource());
+
 
 
 		} catch (Exception e) {
