@@ -23,6 +23,7 @@ public class SeleniumTest2 {
 
 	private List<WebElement> webElement;
 	private List<WebElement> webElement2;
+	private List<WebElement> webElement3;
 
 	// Properties
 	public static final String WEB_DRIVER_ID = "webdriver.chrome.driver";
@@ -59,7 +60,7 @@ public class SeleniumTest2 {
 			webElement.get(0).sendKeys(burgerKingId);
 			Thread.sleep(1000);
 
-			String burgerKingPw = "######";
+			String burgerKingPw = "###";
 			webElement.get(1).sendKeys(burgerKingPw);
 			Thread.sleep(1000);
 
@@ -68,6 +69,13 @@ public class SeleniumTest2 {
 
 			driver.get(base_url2);
 			Thread.sleep(3000);
+
+			List<WebElement> webElementClosePopup = driver.findElements(By.className("popbox01"));
+			for(WebElement el : webElementClosePopup) {
+				el.findElement(By.className("btn_close")).click();
+			}
+			
+			Thread.sleep(2000);
 			webElement2 = driver.findElements(By.className("tit"));
 			Iterator<WebElement> ps = webElement2.iterator();
 
@@ -76,10 +84,12 @@ public class SeleniumTest2 {
 				System.out.println(pTag.getText());
 			}
 
-			List<WebElement> webElement3 = driver.findElements(By.className("price"));
+			webElement3 = driver.findElements(By.className("price"));
 
 			for (WebElement el : webElement3) {
+				
 				System.out.println(el.findElement(By.xpath("//strong//em//span")).getText());
+				
 			}
 
 			// System.out.println(driver.getPageSource());
