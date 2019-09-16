@@ -23,6 +23,7 @@ public class SeleniumTest2 {
 
 	private List<WebElement> webElement;
 	private List<WebElement> webElement2;
+	private List<WebElement> webElement3;
 
 	// Properties
 	public static final String WEB_DRIVER_ID = "webdriver.chrome.driver";
@@ -59,7 +60,7 @@ public class SeleniumTest2 {
 			webElement.get(0).sendKeys(burgerKingId);
 			Thread.sleep(1000);
 
-			String burgerKingPw = "######";
+			String burgerKingPw = "goffhdn90#";
 			webElement.get(1).sendKeys(burgerKingPw);
 			Thread.sleep(1000);
 
@@ -76,9 +77,11 @@ public class SeleniumTest2 {
 				System.out.println(pTag.getText());
 			}
 
-			List<WebElement> webElement3 = driver.findElements(By.className("price"));
+//			Thread.sleep(3000);
+			webElement3 = driver.findElements(By.className("price"));
 
 			for (WebElement el : webElement3) {
+				System.out.println(el.findElement(By.xpath("//strong//em//span")));
 				System.out.println(el.findElement(By.xpath("//strong//em//span")).getText());
 			}
 
