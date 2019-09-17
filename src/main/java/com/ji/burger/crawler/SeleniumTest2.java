@@ -4,6 +4,7 @@ import java.util.Iterator;
 import java.util.List;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -60,7 +61,7 @@ public class SeleniumTest2 {
 			webElement.get(0).sendKeys(burgerKingId);
 			Thread.sleep(1000);
 
-			String burgerKingPw = "###";
+			String burgerKingPw = "#####";
 			webElement.get(1).sendKeys(burgerKingPw);
 			Thread.sleep(1000);
 
@@ -70,10 +71,13 @@ public class SeleniumTest2 {
 			driver.get(base_url2);
 			Thread.sleep(3000);
 
-			List<WebElement> webElementClosePopup = driver.findElements(By.className("popbox01"));
-			for(WebElement el : webElementClosePopup) {
-				el.findElement(By.className("btn_close")).click();
+			
+			JavascriptExecutor js = null;
+			
+			if (driver instanceof JavascriptExecutor) {
+			    js = (JavascriptExecutor) driver;
 			}
+			js.executeScript("return document.getElementsByClassName('btn_close')[0].click();");
 			
 			Thread.sleep(2000);
 			webElement2 = driver.findElements(By.className("tit"));
@@ -92,6 +96,15 @@ public class SeleniumTest2 {
 				
 			}
 
+			Thread.sleep(2000);
+			List<WebElement> wel = driver.findElements(By.className("item3"));
+			
+			for (WebElement el : wel) {
+				System.out.println(el.findElements(By.tagName("li")).get(1).getText());
+				el.findElements(By.tagName("li")).get(1).click();
+			}
+
+			Thread.sleep(2000);
 			// System.out.println(driver.getPageSource());
 
 		} catch (Exception e) {
