@@ -88,12 +88,11 @@ public class SeleniumTest2 {
 				System.out.println(pTag.getText());
 			}
 
-			webElement3 = driver.findElements(By.className("price"));
-
-			for (WebElement el : webElement3) {
-				
-				System.out.println(el.findElement(By.xpath("//strong//em//span")).getText());
-				
+			WebElement webElementPriPrice = driver.findElement(By.className("prdmenu_list"));
+			List<WebElement> webPrdList = webElementPriPrice.findElements(By.tagName("li"));
+			for(WebElement list : webPrdList) {
+				System.out.println(list.getText());
+				System.out.println();
 			}
 
 			Thread.sleep(2000);
@@ -105,6 +104,17 @@ public class SeleniumTest2 {
 			}
 
 			Thread.sleep(2000);
+
+			WebElement webElementPriPrice2 = driver.findElement(By.className("prdmenu_list"));
+			List<WebElement> webPrdList2 = webElementPriPrice.findElements(By.tagName("li"));
+			for(WebElement list : webPrdList2) {
+				System.out.println(list.getText());
+				System.out.println();
+			}
+				
+			
+			Thread.sleep(2000);
+			
 			// System.out.println(driver.getPageSource());
 
 		} catch (Exception e) {
