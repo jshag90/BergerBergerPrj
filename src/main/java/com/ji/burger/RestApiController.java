@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class RestApiController {
 
-	@RequestMapping("getnaversearchword")
+	@RequestMapping(value = "getnaversearchword")
 	public String getNaverSearchWord() {
 
 		Document doc = null;
@@ -45,7 +45,7 @@ public class RestApiController {
 			result = rank + "위 : " + keywordList20.get(rank);
 			resultList.add(result);
 		}
-		
+
 		return String.valueOf(resultList);
 
 	}
