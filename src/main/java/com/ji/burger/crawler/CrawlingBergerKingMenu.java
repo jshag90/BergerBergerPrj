@@ -1,6 +1,5 @@
 package com.ji.burger.crawler;
 
-import java.util.Iterator;
 import java.util.List;
 
 import org.openqa.selenium.By;
@@ -23,8 +22,6 @@ public class CrawlingBergerKingMenu {
 	private WebDriver driver;
 
 	private List<WebElement> webElement;
-	private List<WebElement> webElement2;
-	private List<WebElement> webElement3;
 
 	// Properties
 	public static final String WEB_DRIVER_ID = "webdriver.chrome.driver";
@@ -60,7 +57,7 @@ public class CrawlingBergerKingMenu {
 			String burgerKingId = "jshag90@naver.com";
 			webElement.get(0).sendKeys(burgerKingId);
 			Thread.sleep(1000);
-			
+
 			String burgerKingPw = "###";
 			webElement.get(1).sendKeys(burgerKingPw);
 			Thread.sleep(1000);
@@ -71,57 +68,57 @@ public class CrawlingBergerKingMenu {
 			driver.get(base_url2);
 			Thread.sleep(3000);
 
-			
 			JavascriptExecutor js = null;
-			
+
 			if (driver instanceof JavascriptExecutor) {
-			    js = (JavascriptExecutor) driver;
+				js = (JavascriptExecutor) driver;
 			}
 			js.executeScript("return document.getElementsByClassName('btn_close')[0].click();");
-			
-			Thread.sleep(1000);
-
-			readProductionMenuInfo("스폐셜",2);
 
 			Thread.sleep(1000);
-			
+
+			readProductionMenuInfo("스폐셜", 2);
+
+			Thread.sleep(1000);
+
 			clickMenu(1);
 
 			Thread.sleep(1000);
-			
-			readProductionMenuInfo("프리미엄",1);
-				
+
+			readProductionMenuInfo("프리미엄", 1);
+
 			Thread.sleep(1000);
-			
+
 			clickMenu(2);
-			
+
 			Thread.sleep(1000);
-			
-			readProductionMenuInfo("와퍼&버거",1);
-			
+
+			readProductionMenuInfo("와퍼&버거", 1);
+
 			Thread.sleep(1000);
-			
+
 			clickMenu(3);
-			
+
 			Thread.sleep(1000);
-			
-			readProductionMenuInfo("치킨버거",1);		
-			
+
+			readProductionMenuInfo("치킨버거", 1);
+
 			Thread.sleep(1000);
-			
+
 			clickMenu(4);
-			
+
 			Thread.sleep(1000);
-			
-			readProductionMenuInfo("사이드",1);	
-			
+
+			readProductionMenuInfo("사이드", 1);
+
 			Thread.sleep(1000);
-			
+
 			clickMenu(5);
-			
+
 			Thread.sleep(1000);
+
+			readProductionMenuInfo("음료", 1);
 			
-			readProductionMenuInfo("음료",1);	
 			// System.out.println(driver.getPageSource());
 
 		} catch (Exception e) {
@@ -136,27 +133,27 @@ public class CrawlingBergerKingMenu {
 	}
 
 	public void readProductionMenuInfo(String category, int lastIndex) {
-		System.out.println("///////////////////"+category+"///////////////////////");
+		System.out.println("///////////////////" + category + "///////////////////////");
 		WebElement webElementPriPrice = driver.findElement(By.className("prdmenu_list"));
 		List<WebElement> webPrdList = webElementPriPrice.findElements(By.tagName("li"));
-		
-		for(WebElement list : webPrdList) {
+
+		for (WebElement list : webPrdList) {
 			String[] productInfo = list.getText().split("\n");
 			System.out.println(productInfo[0]);
-			String price  = productInfo[lastIndex].replace("~", "");
+			String price = productInfo[lastIndex].replace("~", "");
 			price = price.replace("₩", "");
 			System.out.println(price);
 		}
-		
+
 	}
 
 	public void clickMenu(int index) {
 		List<WebElement> welItem = driver.findElements(By.className("item3"));
-		
+
 		for (WebElement el : welItem) {
 			el.findElements(By.tagName("li")).get(index).click();
 		}
-		
+
 	}
 
 }
