@@ -58,7 +58,7 @@ public class CrawlingMacdonaldMenu {
 			webElement.get(0).sendKeys(macdonaldId);
 			Thread.sleep(1000);
 
-			String macdonaldPw = "goffhdn90#";
+			String macdonaldPw = "####";
 			webElement.get(1).sendKeys(macdonaldPw);
 			Thread.sleep(1000);
 
@@ -72,7 +72,20 @@ public class CrawlingMacdonaldMenu {
 			
 			driver.get(base_url2);
 			
-			Thread.sleep(3000);
+			Thread.sleep(2000);
+			
+			
+			WebElement webElementSecondaryMenu= driver.findElement(By.className("secondary-menu"));
+			List<WebElement> webMenuList = webElementSecondaryMenu.findElements(By.tagName("li"));
+			WebElement menuEl = webMenuList.get(1);
+			menuEl.findElement(By.className("secondary-menu-item-target")).click();
+			Thread.sleep(2000);
+			
+			List<WebElement> prductTitle =  driver.findElements(By.className("product-title"));
+			
+			for(WebElement title :prductTitle ) {
+				System.out.println(title.getText());
+			}
 
 //			JavascriptExecutor js = null;
 //
