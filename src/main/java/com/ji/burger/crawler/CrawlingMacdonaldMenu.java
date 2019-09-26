@@ -58,7 +58,7 @@ public class CrawlingMacdonaldMenu {
 			webElement.get(0).sendKeys(macdonaldId);
 			Thread.sleep(1000);
 
-			String macdonaldPw = "####";
+			String macdonaldPw = "goffhdn90#";
 			webElement.get(1).sendKeys(macdonaldPw);
 			Thread.sleep(1000);
 
