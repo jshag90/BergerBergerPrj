@@ -58,7 +58,7 @@ public class CrawlingMacdonaldMenu {
 			webElement.get(0).sendKeys(macdonaldId);
 			Thread.sleep(1000);
 
-			String macdonaldPw = "####";
+			String macdonaldPw = "goffhdn90#";
 			webElement.get(1).sendKeys(macdonaldPw);
 			Thread.sleep(1000);
 
@@ -72,73 +72,45 @@ public class CrawlingMacdonaldMenu {
 			
 			driver.get(base_url2);
 			
-			Thread.sleep(2000);
+			Thread.sleep(1000);
 			
+			clickMenu(1);
 			
-			WebElement webElementSecondaryMenu= driver.findElement(By.className("secondary-menu"));
-			List<WebElement> webMenuList = webElementSecondaryMenu.findElements(By.tagName("li"));
-			WebElement menuEl = webMenuList.get(1);
-			menuEl.findElement(By.className("secondary-menu-item-target")).click();
-			Thread.sleep(2000);
+			Thread.sleep(1000);
 			
-			List<WebElement> prductTitle =  driver.findElements(By.className("product-title"));
+			readProductionMenuInfo();
 			
-			for(WebElement title :prductTitle ) {
-				System.out.println(title.getText());
-			}
-
-//			JavascriptExecutor js = null;
-//
-//			if (driver instanceof JavascriptExecutor) {
-//				js = (JavascriptExecutor) driver;
-//			}
-//			js.executeScript("return document.getElementsByClassName('btn_close')[0].click();");
-//
-//			Thread.sleep(1000);
-//
-//			readProductionMenuInfo("스폐셜", 2);
-//
-//			Thread.sleep(1000);
-//
-//			clickMenu(1);
-//
-//			Thread.sleep(1000);
-//
-//			readProductionMenuInfo("프리미엄", 1);
-//
-//			Thread.sleep(1000);
-//
-//			clickMenu(2);
-//
-//			Thread.sleep(1000);
-//
-//			readProductionMenuInfo("와퍼&버거", 1);
-//
-//			Thread.sleep(1000);
-//
-//			clickMenu(3);
-//
-//			Thread.sleep(1000);
-//
-//			readProductionMenuInfo("치킨버거", 1);
-//
-//			Thread.sleep(1000);
-//
-//			clickMenu(4);
-//
-//			Thread.sleep(1000);
-//
-//			readProductionMenuInfo("사이드", 1);
-//
-//			Thread.sleep(1000);
-//
-//			clickMenu(5);
-//
-//			Thread.sleep(1000);
-//
-//			readProductionMenuInfo("음료", 1);
+			Thread.sleep(1000);
 			
-			// System.out.println(driver.getPageSource());
+			clickMenu(2);
+			
+			Thread.sleep(1000);
+			
+			readProductionMenuInfo();
+			
+			Thread.sleep(1000);
+			
+			clickMenu(3);
+			
+			Thread.sleep(1000);
+			
+			readProductionMenuInfo();
+			
+			Thread.sleep(1000);
+			
+			clickMenu(4);
+			
+			Thread.sleep(1000);
+			
+			readProductionMenuInfo();
+			
+			clickMenu(5);
+			
+			Thread.sleep(1000);
+			
+			readProductionMenuInfo();
+			
+			Thread.sleep(1000);
 
 		} catch (Exception e) {
 
@@ -151,27 +123,24 @@ public class CrawlingMacdonaldMenu {
 
 	}
 
-	public void readProductionMenuInfo(String category, int lastIndex) {
-		System.out.println("///////////////////" + category + "///////////////////////");
-		WebElement webElementPriPrice = driver.findElement(By.className("prdmenu_list"));
-		List<WebElement> webPrdList = webElementPriPrice.findElements(By.tagName("li"));
-
-		for (WebElement list : webPrdList) {
-			String[] productInfo = list.getText().split("\n");
-			System.out.println(productInfo[0]);
-			String price = productInfo[lastIndex].replace("~", "");
-			price = price.replace("₩", "");
-			System.out.println(price);
+	public void readProductionMenuInfo() {
+		
+		List<WebElement> prductTitle =  driver.findElements(By.className("product-title"));
+		List<WebElement> prductPrice =  driver.findElements(By.className("starting-price"));
+		
+		for(int index = 0; index<prductTitle.size(); index++) {
+			System.out.println(prductTitle.get(index).getText());
+			String priceStr = prductPrice.get(index).getText().trim().replace(" ", "");
+			System.out.println(priceStr.replace("₩", ""));
 		}
 
 	}
 
 	public void clickMenu(int index) {
-		List<WebElement> welItem = driver.findElements(By.className("item3"));
-
-		for (WebElement el : welItem) {
-			el.findElements(By.tagName("li")).get(index).click();
-		}
+		WebElement webElementSecondaryMenu= driver.findElement(By.className("secondary-menu"));
+		List<WebElement> webMenuList = webElementSecondaryMenu.findElements(By.tagName("li"));
+		WebElement menuEl = webMenuList.get(index);
+		menuEl.findElement(By.className("secondary-menu-item-target")).click();
 
 	}
 
