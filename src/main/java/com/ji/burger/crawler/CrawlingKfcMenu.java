@@ -64,6 +64,9 @@ public class CrawlingKfcMenu {
 				}
 			}
 			
+			
+			
+			
 			Thread.sleep(1000);
 			for(WebElement menu: categoryMenu) {
 //				System.out.println(menu.getText());
