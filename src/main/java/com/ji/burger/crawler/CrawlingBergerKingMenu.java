@@ -58,7 +58,7 @@ public class CrawlingBergerKingMenu {
 			webElement.get(0).sendKeys(burgerKingId);
 			Thread.sleep(1000);
 
-			String burgerKingPw = "###";
+			String burgerKingPw = "####";
 			webElement.get(1).sendKeys(burgerKingPw);
 			Thread.sleep(1000);
 
@@ -140,7 +140,14 @@ public class CrawlingBergerKingMenu {
 		for (WebElement list : webPrdList) {
 			String[] productInfo = list.getText().split("\n");
 			System.out.println(productInfo[0]);
-			String price = productInfo[lastIndex].replace("~", "");
+			
+			String price = "";
+			try {
+				price = productInfo[lastIndex].replace("~", "");
+			}catch(Exception e) {
+				price = productInfo[1].replace("~", "");
+			}
+			
 			price = price.replace("₩", "");
 			System.out.println(price);
 		}

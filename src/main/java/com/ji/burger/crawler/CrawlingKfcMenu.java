@@ -76,8 +76,25 @@ public class CrawlingKfcMenu {
 				}
 			}
 			
-			Thread.sleep(5000);
+			Thread.sleep(2000);
 			
+			WebElement webElementPriPrice = driver.findElement(By.tagName("section"));
+			List<WebElement> webPrdList = webElementPriPrice.findElements(By.tagName("li"));
+
+			for (int i=7; i<webPrdList.size(); i++) {
+				
+				List<WebElement> hData = webPrdList.get(i).findElements(By.tagName("h3"));
+				for(WebElement h : hData) {
+					System.out.println(h.getText());
+				}
+				
+				List<WebElement> liData = webPrdList.get(i).findElements(By.className("price"));
+				for(WebElement ld : liData) {
+					System.out.println(ld.getText());
+				}
+				
+				
+			}
 			
 			
 //			WebElement menuEl = category.get(1);
