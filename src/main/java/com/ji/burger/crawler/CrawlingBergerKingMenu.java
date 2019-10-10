@@ -11,12 +11,12 @@ import org.openqa.selenium.chrome.ChromeOptions;
 
 public class CrawlingBergerKingMenu {
 
-	public static void main(String[] args) {
-
-		CrawlingBergerKingMenu selTest = new CrawlingBergerKingMenu();
-		selTest.crawl();
-
-	}
+//	public static void main(String[] args) {
+//
+//		CrawlingBergerKingMenu selTest = new CrawlingBergerKingMenu();
+//		selTest.excuteCrawl();
+//
+//	}
 
 	// WebDriver
 	private WebDriver driver;
@@ -29,10 +29,13 @@ public class CrawlingBergerKingMenu {
 
 	// 크롤링 할 URL
 	private String base_url, base_url2;
+	
+	private String loginId, loginPw;
 
-	public CrawlingBergerKingMenu() {
+	public CrawlingBergerKingMenu(String loginId, String loginPw) {
 		super();
-
+		this.loginId = loginId;
+		this.loginPw = loginPw;
 		// System Property SetUp
 		System.setProperty(WEB_DRIVER_ID, WEB_DRIVER_PATH);
 
@@ -46,7 +49,7 @@ public class CrawlingBergerKingMenu {
 		base_url2 = "https://www.burgerking.co.kr/#/deliveryHome";
 	}
 
-	public void crawl() {
+	public void excuteCrawl() {
 
 		try {
 			// get page (= 브라우저에서 url을 주소창에 넣은 후 request 한 것과 같다)
@@ -54,11 +57,11 @@ public class CrawlingBergerKingMenu {
 
 			webElement = driver.findElements(By.tagName("input"));
 
-			String burgerKingId = "jshag90@naver.com";
+			String burgerKingId =loginId;
 			webElement.get(0).sendKeys(burgerKingId);
 			Thread.sleep(1000);
 
-			String burgerKingPw = "####";
+			String burgerKingPw = loginPw;
 			webElement.get(1).sendKeys(burgerKingPw);
 			Thread.sleep(1000);
 

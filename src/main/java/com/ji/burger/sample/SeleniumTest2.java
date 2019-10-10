@@ -1,4 +1,4 @@
-package com.ji.burger.crawler;
+package com.ji.burger.sample;
 
 import java.util.Iterator;
 import java.util.List;

@@ -11,12 +11,12 @@ import org.openqa.selenium.chrome.ChromeOptions;
 
 public class CrawlingKfcMenu {
 
-	public static void main(String[] args) {
-
-		CrawlingKfcMenu selTest = new CrawlingKfcMenu();
-		selTest.crawl();
-
-	}
+//	public static void main(String[] args) {
+//
+//		CrawlingKfcMenu selTest = new CrawlingKfcMenu();
+//		selTest.excuteCrawl();
+//
+//	}
 
 	// WebDriver
 	private WebDriver driver;
@@ -43,66 +43,63 @@ public class CrawlingKfcMenu {
 
 		base_url = "https://www.kfckorea.com";
 
-		base_url2 = "https://www.mcdelivery.co.kr/kr/menu.html";
 	}
 
-	public void crawl() {
+	public void excuteCrawl() {
 
 		try {
 			// get page (= 브라우저에서 url을 주소창에 넣은 후 request 한 것과 같다)
 			driver.get(base_url);
 
-			WebElement category= driver.findElement(By.className("category"));
+			WebElement category = driver.findElement(By.className("category"));
 			WebElement categoryList = category.findElement(By.className("category-list"));
 			List<WebElement> categoryMenu = categoryList.findElements(By.xpath("//li//a"));
-			Thread.sleep(1000);
-			for(WebElement menu: categoryMenu) {
-//				System.out.println(menu.getText());
-				if(menu.getText().equals("DELIVERY")) {
-					menu.click();
-					break;
-				}
-			}
-			
-			
-			
-			
-			Thread.sleep(1000);
-			for(WebElement menu: categoryMenu) {
-//				System.out.println(menu.getText());
-				if(menu.getText().equals("치킨&세트")) {
-					menu.click();
-					break;
-				}
-			}
-			
-			Thread.sleep(2000);
-			
-			WebElement webElementPriPrice = driver.findElement(By.tagName("section"));
-			List<WebElement> webPrdList = webElementPriPrice.findElements(By.tagName("li"));
 
-			for (int i=7; i<webPrdList.size(); i++) {
-				
-				List<WebElement> hData = webPrdList.get(i).findElements(By.tagName("h3"));
-				for(WebElement h : hData) {
-					System.out.println(h.getText());
+			Thread.sleep(1000);
+			for (WebElement menu : categoryMenu) {
+				if (menu.getText().equals("DELIVERY")) {
+					menu.click();
+					break;
 				}
-				
-				List<WebElement> liData = webPrdList.get(i).findElements(By.className("price"));
-				for(WebElement ld : liData) {
-					System.out.println(ld.getText());
-				}
-				
-				
 			}
-			
-			
-//			WebElement menuEl = category.get(1);
-//			menuEl.findElement(By.tagName("a")).click();
-			
-			
-//			driver.get(base_url2);
-			
+
+			Thread.sleep(1000);
+			for (WebElement menu : categoryMenu) {
+				if (menu.getText().equals("치킨&세트")) {
+					menu.click();
+					break;
+				}
+			}
+
+			Thread.sleep(1000);
+
+			readProductionMenuInfo();
+
+			Thread.sleep(1000);
+
+			clickSlideMenu("버거&세트");
+
+			Thread.sleep(1000);
+
+			readProductionMenuInfo();
+
+			Thread.sleep(1000);
+
+			clickSlideMenu("스낵&사이드");
+
+			Thread.sleep(1000);
+
+			readProductionMenuInfo();
+
+			Thread.sleep(1000);
+
+			clickSlideMenu("음료");
+
+			Thread.sleep(1000);
+
+			readProductionMenuInfo();
+
+			Thread.sleep(1000);
 
 		} catch (Exception e) {
 
@@ -116,23 +113,34 @@ public class CrawlingKfcMenu {
 	}
 
 	public void readProductionMenuInfo() {
-		
-		List<WebElement> prductTitle =  driver.findElements(By.className("product-title"));
-		List<WebElement> prductPrice =  driver.findElements(By.className("starting-price"));
-		
-		for(int index = 0; index<prductTitle.size(); index++) {
-			System.out.println(prductTitle.get(index).getText());
-			String priceStr = prductPrice.get(index).getText().trim().replace(" ", "");
-			System.out.println(priceStr.replace("₩", ""));
+
+		WebElement webElementPriPrice = driver.findElement(By.tagName("section"));
+		List<WebElement> webPrdList = webElementPriPrice.findElements(By.tagName("li"));
+
+		for (int i = 7; i < webPrdList.size(); i++) {
+
+			List<WebElement> hData = webPrdList.get(i).findElements(By.tagName("h3"));
+			for (WebElement h : hData) {
+				System.out.println(h.getText());
+			}
+
+			List<WebElement> liData = webPrdList.get(i).findElements(By.className("price"));
+			for (WebElement ld : liData) {
+				System.out.println(ld.getText());
+			}
+
 		}
 
 	}
 
-	public void clickMenu(int index) {
-		WebElement webElementSecondaryMenu= driver.findElement(By.className("secondary-menu"));
-		List<WebElement> webMenuList = webElementSecondaryMenu.findElements(By.tagName("li"));
-		WebElement menuEl = webMenuList.get(index);
-		menuEl.findElement(By.className("secondary-menu-item-target")).click();
+	public void clickSlideMenu(String categoryName) {
+		List<WebElement> swiperSlide = driver.findElements(By.className("swiper-slide"));
+		for (WebElement sSlide : swiperSlide) {
+			if (sSlide.getText().equals(categoryName)) {
+				sSlide.click();
+				break;
+			}
+		}
 
 	}
 

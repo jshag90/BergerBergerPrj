@@ -1,42 +1,28 @@
 package com.ji.burger;
 
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-
-import org.jsoup.Jsoup;
-import org.jsoup.nodes.Document;
-import org.jsoup.nodes.Element;
-import org.jsoup.select.Elements;
+import com.ji.burger.crawler.CrawlingBergerKingMenu;
+import com.ji.burger.crawler.CrawlingKfcMenu;
+import com.ji.burger.crawler.CrawlingMacdonaldMenu;
 
 public class CrawlerController {
 	
+	private static CrawlingBergerKingMenu bergerKing;
+	private static CrawlingMacdonaldMenu macdonald;
+	private static CrawlingKfcMenu kfc;
+	
 	public static void main(String[] args) {
-
-		Document doc = null;
-
-		try {
-			doc = Jsoup.connect("https://datalab.naver.com/keyword/realtimeList.naver?where=main").get();
-		} catch (IOException e1) {
-
-		}
-
-		Elements elements = doc.select("ul.rank_list li span");
-		List<String> keywordList20 = new ArrayList<String>();
-
-		int index = 0;
-		for (Element e : elements) {
-			index++;
-			if(index>21){
-				break;
-			}else{
-				keywordList20.add(e.text());
-			}
-		}
 		
-		for(int rank=1; rank < keywordList20.size(); rank++){
-			System.out.println(rank+"위 : "+keywordList20.get(rank));
-		}
+		String pw = "####";
+		
+		bergerKing = new CrawlingBergerKingMenu("jshag90@naver.com",pw);
+		bergerKing.excuteCrawl();
+		
+		macdonald = new CrawlingMacdonaldMenu("wltjsgkr90@hanmail.net", pw);
+		macdonald.excuteCrawl();
+		
+		kfc = new CrawlingKfcMenu();
+		kfc.excuteCrawl();
+		
 	}
 	
 }
