@@ -1,6 +1,9 @@
 package com.ji.burger.crawler;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
@@ -11,12 +14,16 @@ import org.openqa.selenium.chrome.ChromeOptions;
 
 public class CrawlingBergerKingMenu {
 
-//	public static void main(String[] args) {
-//
-//		CrawlingBergerKingMenu selTest = new CrawlingBergerKingMenu();
-//		selTest.excuteCrawl();
-//
-//	}
+	public static void main(String[] args) {
+
+//		CrawlingBergerKingMenu selTest = new CrawlingBergerKingMenu("jshag90@naver.com","goffhdn90#");
+//		List<Object> result = selTest.excuteCrawl();
+//		
+//		for(Object data: result) {
+//			System.out.println(data);
+//		}
+
+	}
 
 	// WebDriver
 	private WebDriver driver;
@@ -34,6 +41,7 @@ public class CrawlingBergerKingMenu {
 
 	public CrawlingBergerKingMenu(String loginId, String loginPw) {
 		super();
+		
 		this.loginId = loginId;
 		this.loginPw = loginPw;
 		// System Property SetUp
@@ -49,10 +57,11 @@ public class CrawlingBergerKingMenu {
 		base_url2 = "https://www.burgerking.co.kr/#/deliveryHome";
 	}
 
-	public void excuteCrawl() {
-
+	public List<Object> excuteCrawl() {
+		
+		List<Object> result = new ArrayList<Object>();
+		
 		try {
-			// get page (= 브라우저에서 url을 주소창에 넣은 후 request 한 것과 같다)
 			driver.get(base_url);
 
 			webElement = driver.findElements(By.tagName("input"));
@@ -80,49 +89,53 @@ public class CrawlingBergerKingMenu {
 
 			Thread.sleep(1000);
 
-			readProductionMenuInfo("스폐셜", 2);
-
+			List<Object> specialList = readProductionMenuInfo("스폐셜", 2);
+			result.add(specialList);
+			
 			Thread.sleep(1000);
 
 			clickMenu(1);
 
 			Thread.sleep(1000);
 
-			readProductionMenuInfo("프리미엄", 1);
-
+			List<Object> primiumList  = readProductionMenuInfo("프리미엄", 1);
+			result.add(primiumList);
+			
 			Thread.sleep(1000);
 
 			clickMenu(2);
 
 			Thread.sleep(1000);
 
-			readProductionMenuInfo("와퍼&버거", 1);
-
+			List<Object> wapperAndBurgerList  = readProductionMenuInfo("와퍼&버거", 1);
+			result.add(wapperAndBurgerList);
+			
 			Thread.sleep(1000);
 
 			clickMenu(3);
 
 			Thread.sleep(1000);
 
-			readProductionMenuInfo("치킨버거", 1);
-
+			List<Object> chickenBurgerList  = readProductionMenuInfo("치킨버거", 1);
+			result.add(chickenBurgerList);
+			
 			Thread.sleep(1000);
 
 			clickMenu(4);
 
 			Thread.sleep(1000);
 
-			readProductionMenuInfo("사이드", 1);
-
+			List<Object> sideList  = readProductionMenuInfo("사이드", 1);
+			result.add(sideList);
+			
 			Thread.sleep(1000);
 
 			clickMenu(5);
 
 			Thread.sleep(1000);
 
-			readProductionMenuInfo("음료", 1);
-			
-			// System.out.println(driver.getPageSource());
+			List<Object> drinkList  = readProductionMenuInfo("음료", 1);
+			result.add(drinkList);
 
 		} catch (Exception e) {
 
@@ -132,18 +145,23 @@ public class CrawlingBergerKingMenu {
 
 			driver.close();
 		}
+		
+		return result;
 
 	}
 
-	public void readProductionMenuInfo(String category, int lastIndex) {
-		System.out.println("///////////////////" + category + "///////////////////////");
+	public List<Object> readProductionMenuInfo(String category, int lastIndex) {
+		
+//		System.out.println("///////////////////" + category + "///////////////////////");
+		List<Object> result = new ArrayList<Object>();
+		Map<String,Object> infoMap= new HashMap<String, Object>();
+		
 		WebElement webElementPriPrice = driver.findElement(By.className("prdmenu_list"));
 		List<WebElement> webPrdList = webElementPriPrice.findElements(By.tagName("li"));
 
 		for (WebElement list : webPrdList) {
 			String[] productInfo = list.getText().split("\n");
-			System.out.println(productInfo[0]);
-			
+//			System.out.println(productInfo[0]);
 			String price = "";
 			try {
 				price = productInfo[lastIndex].replace("~", "");
@@ -152,8 +170,16 @@ public class CrawlingBergerKingMenu {
 			}
 			
 			price = price.replace("₩", "");
-			System.out.println(price);
+//			System.out.println(price);
+			
+			infoMap.put("CATEGORY", category);
+			infoMap.put("NAME", productInfo[0]);
+			infoMap.put("PRICE", price);
+			
+			result.add(infoMap);
 		}
+		
+		return result;
 
 	}
 

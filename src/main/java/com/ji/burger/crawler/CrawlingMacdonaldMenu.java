@@ -1,6 +1,9 @@
 package com.ji.burger.crawler;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
@@ -50,7 +53,9 @@ public class CrawlingMacdonaldMenu {
 		base_url2 = "https://www.mcdelivery.co.kr/kr/menu.html";
 	}
 
-	public void excuteCrawl() {
+	public List<Object> excuteCrawl() {
+		
+		List<Object> result = new ArrayList<Object>();
 
 		try {
 			// get page (= 브라우저에서 url을 주소창에 넣은 후 request 한 것과 같다)
@@ -82,7 +87,8 @@ public class CrawlingMacdonaldMenu {
 			
 			Thread.sleep(1000);
 			
-			readProductionMenuInfo();
+			List<Object> bergerAndSetList = readProductionMenuInfo("버거&세트");
+			result.add(bergerAndSetList);
 			
 			Thread.sleep(1000);
 			
@@ -90,7 +96,8 @@ public class CrawlingMacdonaldMenu {
 			
 			Thread.sleep(1000);
 			
-			readProductionMenuInfo();
+			List<Object> snackAndSideList = readProductionMenuInfo("스낵&사이드");
+			result.add(snackAndSideList);
 			
 			Thread.sleep(1000);
 			
@@ -98,7 +105,8 @@ public class CrawlingMacdonaldMenu {
 			
 			Thread.sleep(1000);
 			
-			readProductionMenuInfo();
+			List<Object> drinkList  = readProductionMenuInfo("음료");
+			result.add(drinkList);
 			
 			Thread.sleep(1000);
 			
@@ -106,15 +114,15 @@ public class CrawlingMacdonaldMenu {
 			
 			Thread.sleep(1000);
 			
-			readProductionMenuInfo();
+			List<Object> desertList = readProductionMenuInfo("디저트");
+			result.add(desertList);
 			
 			clickMenu(5);
 			
 			Thread.sleep(1000);
 			
-			readProductionMenuInfo();
-			
-			Thread.sleep(1000);
+			List<Object> happymealList =readProductionMenuInfo("해피밀®");
+			result.add(happymealList);
 
 		} catch (Exception e) {
 
@@ -125,18 +133,30 @@ public class CrawlingMacdonaldMenu {
 			driver.close();
 		}
 
+		return result;
 	}
 
-	public void readProductionMenuInfo() {
+	public List<Object> readProductionMenuInfo(String category) {
+		
+		List<Object> result = new ArrayList<Object>();
+		Map<String,Object> infoMap= new HashMap<String, Object>();
 		
 		List<WebElement> prductTitle =  driver.findElements(By.className("product-title"));
 		List<WebElement> prductPrice =  driver.findElements(By.className("starting-price"));
 		
 		for(int index = 0; index<prductTitle.size(); index++) {
-			System.out.println(prductTitle.get(index).getText());
+//			System.out.println(prductTitle.get(index).getText());
 			String priceStr = prductPrice.get(index).getText().trim().replace(" ", "");
-			System.out.println(priceStr.replace("₩", ""));
+//			System.out.println(priceStr.replace("₩", ""));
+			
+			infoMap.put("CATEGORY", category);
+			infoMap.put("NAME", prductTitle.get(index).getText());
+			infoMap.put("PRICE", priceStr.replace("₩", ""));
+			
+			result.add(infoMap);
 		}
+		
+		return result;
 
 	}
 

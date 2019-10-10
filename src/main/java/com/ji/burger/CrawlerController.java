@@ -1,5 +1,7 @@
 package com.ji.burger;
 
+import java.util.List;
+
 import com.ji.burger.crawler.CrawlingBergerKingMenu;
 import com.ji.burger.crawler.CrawlingKfcMenu;
 import com.ji.burger.crawler.CrawlingMacdonaldMenu;
@@ -12,16 +14,20 @@ public class CrawlerController {
 	
 	public static void main(String[] args) {
 		
-		String pw = "####";
+		String pw ="####";
 		
-		bergerKing = new CrawlingBergerKingMenu("jshag90@naver.com",pw);
-		bergerKing.excuteCrawl();
+		bergerKing= new CrawlingBergerKingMenu("jshag90@naver.com", pw);
+		for(Object data: bergerKing.excuteCrawl()) {
+			System.out.println(data);
+		}
 		
 		macdonald = new CrawlingMacdonaldMenu("wltjsgkr90@hanmail.net", pw);
-		macdonald.excuteCrawl();
-		
-		kfc = new CrawlingKfcMenu();
-		kfc.excuteCrawl();
+		for(Object data: macdonald.excuteCrawl()) {
+			System.out.println(data);
+		}
+//		
+//		kfc = new CrawlingKfcMenu();
+//		kfc.excuteCrawl();
 		
 	}
 	
