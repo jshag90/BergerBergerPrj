@@ -1,9 +1,11 @@
 package com.ji.burger.crawler;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.openqa.selenium.By;
-import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -21,14 +23,12 @@ public class CrawlingKfcMenu {
 	// WebDriver
 	private WebDriver driver;
 
-	private List<WebElement> webElement;
-
 	// Properties
 	public static final String WEB_DRIVER_ID = "webdriver.chrome.driver";
 	public static final String WEB_DRIVER_PATH = "C:/selenium/chromedriver.exe";
 
 	// 크롤링 할 URL
-	private String base_url, base_url2;
+	private String base_url;
 
 	public CrawlingKfcMenu() {
 		super();
@@ -45,7 +45,9 @@ public class CrawlingKfcMenu {
 
 	}
 
-	public void excuteCrawl() {
+	public List<Object> excuteCrawl() {
+
+		List<Object> result = new ArrayList<Object>();
 
 		try {
 			// get page (= 브라우저에서 url을 주소창에 넣은 후 request 한 것과 같다)
@@ -73,7 +75,8 @@ public class CrawlingKfcMenu {
 
 			Thread.sleep(1000);
 
-			readProductionMenuInfo();
+			List<Object> chickenAndSetList = readProductionMenuInfo("치킨&세트");
+			result.add(chickenAndSetList);
 
 			Thread.sleep(1000);
 
@@ -81,7 +84,8 @@ public class CrawlingKfcMenu {
 
 			Thread.sleep(1000);
 
-			readProductionMenuInfo();
+			List<Object> bergerAndSetList = readProductionMenuInfo("버거&세트");
+			result.add(bergerAndSetList);
 
 			Thread.sleep(1000);
 
@@ -89,7 +93,8 @@ public class CrawlingKfcMenu {
 
 			Thread.sleep(1000);
 
-			readProductionMenuInfo();
+			List<Object> snackAndSideList = readProductionMenuInfo("스낵&사이드");
+			result.add(snackAndSideList);
 
 			Thread.sleep(1000);
 
@@ -97,7 +102,8 @@ public class CrawlingKfcMenu {
 
 			Thread.sleep(1000);
 
-			readProductionMenuInfo();
+			List<Object> drinkList = readProductionMenuInfo("음료");
+			result.add(drinkList);
 
 			Thread.sleep(1000);
 
@@ -109,28 +115,43 @@ public class CrawlingKfcMenu {
 
 			driver.close();
 		}
+		
+		return result;
 
 	}
 
-	public void readProductionMenuInfo() {
+	public List<Object> readProductionMenuInfo(String category) {
+
+		List<Object> result = new ArrayList<Object>();
+		Map<String, Object> infoMap = new HashMap<String, Object>();
 
 		WebElement webElementPriPrice = driver.findElement(By.tagName("section"));
 		List<WebElement> webPrdList = webElementPriPrice.findElements(By.tagName("li"));
 
 		for (int i = 7; i < webPrdList.size(); i++) {
 
+			String prdName = "";
+			String prdPrice = "";
 			List<WebElement> hData = webPrdList.get(i).findElements(By.tagName("h3"));
 			for (WebElement h : hData) {
 				System.out.println(h.getText());
+				prdName = h.getText();
 			}
 
 			List<WebElement> liData = webPrdList.get(i).findElements(By.className("price"));
 			for (WebElement ld : liData) {
 				System.out.println(ld.getText());
+				prdPrice = ld.getText();
 			}
 
+			infoMap.put("CATEGORY", category);
+			infoMap.put("NAME", prdName);
+			infoMap.put("PRICE", prdPrice);
+
+			result.add(infoMap);
 		}
 
+		return result;
 	}
 
 	public void clickSlideMenu(String categoryName) {
