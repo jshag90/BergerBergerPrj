@@ -25,12 +25,12 @@ public class CrawlerController {
 		for(Object data: macdonald.excuteCrawl()) {
 			System.out.println(data);
 		}
-		
+//		
 		kfc = new CrawlingKfcMenu();
 		for(Object data: kfc.excuteCrawl()) {
 			System.out.println(data);
 		}
-		
+//		
 		
 	}
 	

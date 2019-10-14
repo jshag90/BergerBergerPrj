@@ -20,28 +20,15 @@ public class CrawlingKfcMenu {
 //
 //	}
 
-	// WebDriver
+	private InitCrawlingSeleniumDriver initCSDriver;
 	private WebDriver driver;
-
-	// Properties
-	public static final String WEB_DRIVER_ID = "webdriver.chrome.driver";
-	public static final String WEB_DRIVER_PATH = "C:/selenium/chromedriver.exe";
-
-	// 크롤링 할 URL
-	private String base_url;
+	private String base_url = "https://www.kfckorea.com";;
 
 	public CrawlingKfcMenu() {
 		super();
 
-		// System Property SetUp
-		System.setProperty(WEB_DRIVER_ID, WEB_DRIVER_PATH);
-
-		// Driver SetUp
-		ChromeOptions options = new ChromeOptions();
-		options.setCapability("ignoreProtectedModeSettings", true);
-		driver = new ChromeDriver(options);
-
-		base_url = "https://www.kfckorea.com";
+		initCSDriver = new InitCrawlingSeleniumDriver();
+		driver = initCSDriver.initDriverSetup();
 
 	}
 
@@ -123,32 +110,25 @@ public class CrawlingKfcMenu {
 	public List<Object> readProductionMenuInfo(String category) {
 
 		List<Object> result = new ArrayList<Object>();
-		Map<String, Object> infoMap = new HashMap<String, Object>();
 
 		WebElement webElementPriPrice = driver.findElement(By.tagName("section"));
 		List<WebElement> webPrdList = webElementPriPrice.findElements(By.tagName("li"));
 
 		for (int i = 7; i < webPrdList.size(); i++) {
 
-			String prdName = "";
-			String prdPrice = "";
+			List<WebElement> imgData = webPrdList.get(i).findElements(By.tagName("img"));
 			List<WebElement> hData = webPrdList.get(i).findElements(By.tagName("h3"));
-			for (WebElement h : hData) {
-				System.out.println(h.getText());
-				prdName = h.getText();
-			}
-
 			List<WebElement> liData = webPrdList.get(i).findElements(By.className("price"));
-			for (WebElement ld : liData) {
-				System.out.println(ld.getText());
-				prdPrice = ld.getText();
+			
+			for (int index = 0; index < hData.size(); index++) {
+				Map<String, Object> infoMap = new HashMap<String, Object>();
+				infoMap.put("IMG", imgData.get(index).getAttribute("src"));
+				infoMap.put("NAME", hData.get(index).getText());
+				infoMap.put("PRICE", liData.get(index).getText());
+				infoMap.put("CATEGORY", category);
+
+				result.add(infoMap);
 			}
-
-			infoMap.put("CATEGORY", category);
-			infoMap.put("NAME", prdName);
-			infoMap.put("PRICE", prdPrice);
-
-			result.add(infoMap);
 		}
 
 		return result;

@@ -25,17 +25,16 @@ public class CrawlingBergerKingMenu {
 
 	}
 
+	
+	private InitCrawlingSeleniumDriver initCSDriver;
 	// WebDriver
 	private WebDriver driver;
 
 	private List<WebElement> webElement;
 
-	// Properties
-	public static final String WEB_DRIVER_ID = "webdriver.chrome.driver";
-	public static final String WEB_DRIVER_PATH = "C:/selenium/chromedriver.exe";
-
 	// 크롤링 할 URL
-	private String base_url, base_url2;
+	private String base_url = "https://www.burgerking.co.kr/#/login";
+	private String base_url2= "https://www.burgerking.co.kr/#/deliveryHome";
 	
 	private String loginId, loginPw;
 
@@ -44,17 +43,9 @@ public class CrawlingBergerKingMenu {
 		
 		this.loginId = loginId;
 		this.loginPw = loginPw;
-		// System Property SetUp
-		System.setProperty(WEB_DRIVER_ID, WEB_DRIVER_PATH);
-
-		// Driver SetUp
-		ChromeOptions options = new ChromeOptions();
-		options.setCapability("ignoreProtectedModeSettings", true);
-		driver = new ChromeDriver(options);
-
-		base_url = "https://www.burgerking.co.kr/#/login";
-
-		base_url2 = "https://www.burgerking.co.kr/#/deliveryHome";
+		
+		initCSDriver = new InitCrawlingSeleniumDriver();
+		driver = initCSDriver.initDriverSetup();
 	}
 
 	public List<Object> excuteCrawl() {
@@ -152,14 +143,16 @@ public class CrawlingBergerKingMenu {
 
 	public List<Object> readProductionMenuInfo(String category, int lastIndex) {
 		
-//		System.out.println("///////////////////" + category + "///////////////////////");
 		List<Object> result = new ArrayList<Object>();
-		Map<String,Object> infoMap= new HashMap<String, Object>();
 		
 		WebElement webElementPriPrice = driver.findElement(By.className("prdmenu_list"));
 		List<WebElement> webPrdList = webElementPriPrice.findElements(By.tagName("li"));
 
 		for (WebElement list : webPrdList) {
+			Map<String,Object> infoMap= new HashMap<String, Object>();
+			
+			WebElement img = list.findElement(By.tagName("img"));
+			String src = img.getAttribute("src");
 			String[] productInfo = list.getText().split("\n");
 //			System.out.println(productInfo[0]);
 			String price = "";
@@ -172,7 +165,9 @@ public class CrawlingBergerKingMenu {
 			price = price.replace("₩", "");
 //			System.out.println(price);
 			
+			
 			infoMap.put("CATEGORY", category);
+			infoMap.put("IMG", src);
 			infoMap.put("NAME", productInfo[0]);
 			infoMap.put("PRICE", price);
 			

@@ -21,17 +21,13 @@ public class CrawlingMacdonaldMenu {
 //
 //	}
 
+	private InitCrawlingSeleniumDriver initCSDriver;
+	
 	// WebDriver
 	private WebDriver driver;
-
 	private List<WebElement> webElement;
-
-	// Properties
-	public static final String WEB_DRIVER_ID = "webdriver.chrome.driver";
-	public static final String WEB_DRIVER_PATH = "C:/selenium/chromedriver.exe";
-
-	// 크롤링 할 URL
-	private String base_url, base_url2;
+	private String base_url=  "https://www.mcdelivery.co.kr/kr/home.html";
+	private String base_url2 ="https://www.mcdelivery.co.kr/kr/menu.html";
 	
 	private String loginId, loginPw;
 
@@ -40,17 +36,9 @@ public class CrawlingMacdonaldMenu {
 		this.loginId = loginId;
 		this.loginPw = loginPw;
 
-		// System Property SetUp
-		System.setProperty(WEB_DRIVER_ID, WEB_DRIVER_PATH);
+		initCSDriver = new InitCrawlingSeleniumDriver();
+		driver = initCSDriver.initDriverSetup();
 
-		// Driver SetUp
-		ChromeOptions options = new ChromeOptions();
-		options.setCapability("ignoreProtectedModeSettings", true);
-		driver = new ChromeDriver(options);
-
-		base_url = "https://www.mcdelivery.co.kr/kr/home.html";
-
-		base_url2 = "https://www.mcdelivery.co.kr/kr/menu.html";
 	}
 
 	public List<Object> excuteCrawl() {
@@ -119,8 +107,6 @@ public class CrawlingMacdonaldMenu {
 			
 			clickMenu(5);
 			
-			Thread.sleep(1000);
-			
 			List<Object> happymealList =readProductionMenuInfo("해피밀®");
 			result.add(happymealList);
 
@@ -139,17 +125,19 @@ public class CrawlingMacdonaldMenu {
 	public List<Object> readProductionMenuInfo(String category) {
 		
 		List<Object> result = new ArrayList<Object>();
-		Map<String,Object> infoMap= new HashMap<String, Object>();
 		
+		List<WebElement> prductImg =  driver.findElements(By.tagName("img"));
 		List<WebElement> prductTitle =  driver.findElements(By.className("product-title"));
 		List<WebElement> prductPrice =  driver.findElements(By.className("starting-price"));
 		
 		for(int index = 0; index<prductTitle.size(); index++) {
+			Map<String,Object> infoMap= new HashMap<String, Object>();
 //			System.out.println(prductTitle.get(index).getText());
 			String priceStr = prductPrice.get(index).getText().trim().replace(" ", "");
 //			System.out.println(priceStr.replace("₩", ""));
-			
+			String img = prductImg.get(index+1).getAttribute("src");
 			infoMap.put("CATEGORY", category);
+			infoMap.put("IMG", img);
 			infoMap.put("NAME", prductTitle.get(index).getText());
 			infoMap.put("PRICE", priceStr.replace("₩", ""));
 			

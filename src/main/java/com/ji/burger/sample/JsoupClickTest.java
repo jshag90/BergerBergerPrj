@@ -20,7 +20,6 @@ public class JsoupClickTest {
 			System.out.println(res.parse());
 			
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 
