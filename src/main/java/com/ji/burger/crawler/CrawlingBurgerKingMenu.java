@@ -12,7 +12,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 
-public class CrawlingBergerKingMenu {
+public class CrawlingBurgerKingMenu {
 
 	public static void main(String[] args) {
 
@@ -38,7 +38,7 @@ public class CrawlingBergerKingMenu {
 	
 	private String loginId, loginPw;
 
-	public CrawlingBergerKingMenu(String loginId, String loginPw) {
+	public CrawlingBurgerKingMenu(String loginId, String loginPw) {
 		super();
 		
 		this.loginId = loginId;
