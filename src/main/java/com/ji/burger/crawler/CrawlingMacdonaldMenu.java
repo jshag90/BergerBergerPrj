@@ -76,7 +76,10 @@ public class CrawlingMacdonaldMenu {
 			Thread.sleep(1000);
 			
 			List<Object> bergerAndSetList = readProductionMenuInfo("버거&세트");
-			result.add(bergerAndSetList);
+			for(Object bASList:bergerAndSetList) {
+				Map<String,Object> data = (Map<String, Object>) bergerAndSetList;			
+				result.add(bergerAndSetList);
+			}
 			
 			Thread.sleep(1000);
 			
@@ -85,7 +88,10 @@ public class CrawlingMacdonaldMenu {
 			Thread.sleep(1000);
 			
 			List<Object> snackAndSideList = readProductionMenuInfo("스낵&사이드");
-			result.add(snackAndSideList);
+			for(Object sASList:snackAndSideList) {
+				Map<String,Object> data = (Map<String, Object>) sASList;			
+				result.add(data);
+			}
 			
 			Thread.sleep(1000);
 			
@@ -94,7 +100,10 @@ public class CrawlingMacdonaldMenu {
 			Thread.sleep(1000);
 			
 			List<Object> drinkList  = readProductionMenuInfo("음료");
-			result.add(drinkList);
+			for(Object dList:drinkList) {
+				Map<String,Object> data = (Map<String, Object>) dList;			
+				result.add(data);
+			}
 			
 			Thread.sleep(1000);
 			
@@ -103,12 +112,18 @@ public class CrawlingMacdonaldMenu {
 			Thread.sleep(1000);
 			
 			List<Object> desertList = readProductionMenuInfo("디저트");
-			result.add(desertList);
+			for(Object dsList:desertList) {
+				Map<String,Object> data = (Map<String, Object>) dsList;			
+				result.add(data);
+			}
 			
 			clickMenu(5);
 			
 			List<Object> happymealList =readProductionMenuInfo("해피밀®");
-			result.add(happymealList);
+			for(Object hList:happymealList) {
+				Map<String,Object> data = (Map<String, Object>) hList;			
+				result.add(data);
+			}
 
 		} catch (Exception e) {
 

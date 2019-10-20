@@ -63,7 +63,10 @@ public class CrawlingKfcMenu {
 			Thread.sleep(1000);
 
 			List<Object> chickenAndSetList = readProductionMenuInfo("치킨&세트");
-			result.add(chickenAndSetList);
+			for(Object cASList:chickenAndSetList) {
+				Map<String,Object> data = (Map<String, Object>) cASList;			
+				result.add(data);
+			}
 
 			Thread.sleep(1000);
 
@@ -72,8 +75,11 @@ public class CrawlingKfcMenu {
 			Thread.sleep(1000);
 
 			List<Object> bergerAndSetList = readProductionMenuInfo("버거&세트");
-			result.add(bergerAndSetList);
-
+			for(Object bASList:bergerAndSetList) {
+				Map<String,Object> data = (Map<String, Object>) bASList;			
+				result.add(data);
+			}
+			
 			Thread.sleep(1000);
 
 			clickSlideMenu("스낵&사이드");
@@ -81,7 +87,10 @@ public class CrawlingKfcMenu {
 			Thread.sleep(1000);
 
 			List<Object> snackAndSideList = readProductionMenuInfo("스낵&사이드");
-			result.add(snackAndSideList);
+			for(Object sASList:snackAndSideList) {
+				Map<String,Object> data = (Map<String, Object>) sASList;			
+				result.add(data);
+			}
 
 			Thread.sleep(1000);
 
@@ -90,7 +99,10 @@ public class CrawlingKfcMenu {
 			Thread.sleep(1000);
 
 			List<Object> drinkList = readProductionMenuInfo("음료");
-			result.add(drinkList);
+			for(Object dList:drinkList) {
+				Map<String,Object> data = (Map<String, Object>) dList;			
+				result.add(data);
+			}
 
 			Thread.sleep(1000);
 
