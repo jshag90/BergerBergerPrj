@@ -54,7 +54,7 @@ public class FireStoreController {
 	 * @param docName document name
 	 */
 	void addDocument(String docName) throws Exception {
-		String pw = "####";
+		String pw = "goffhdn90#";
 		
 		switch (docName) {
 		case "BurgerKing": {
@@ -84,6 +84,7 @@ public class FireStoreController {
 				String docNameStr = fieldMap.get("CATEGORY").toString()+"_"+String.valueOf(index++);
 				DocumentReference docRef = db.collection(docName).document(docNameStr);
 				ApiFuture<WriteResult> result = docRef.set(fieldMap);
+				
 			}
 			
 			break;

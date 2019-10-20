@@ -77,8 +77,8 @@ public class CrawlingMacdonaldMenu {
 			
 			List<Object> bergerAndSetList = readProductionMenuInfo("버거&세트");
 			for(Object bASList:bergerAndSetList) {
-				Map<String,Object> data = (Map<String, Object>) bergerAndSetList;			
-				result.add(bergerAndSetList);
+				Map<String,Object> data = (Map<String, Object>) bASList;			
+				result.add(data);
 			}
 			
 			Thread.sleep(1000);
