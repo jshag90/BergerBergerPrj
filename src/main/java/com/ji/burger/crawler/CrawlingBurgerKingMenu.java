@@ -81,7 +81,10 @@ public class CrawlingBurgerKingMenu {
 			Thread.sleep(1000);
 
 			List<Object> specialList = readProductionMenuInfo("스폐셜", 2);
-			result.add(specialList);
+			for(Object sList:specialList) {
+				Map<String,Object> data = (Map<String, Object>) sList;
+				result.add(data);
+			}
 			
 			Thread.sleep(1000);
 
@@ -90,7 +93,10 @@ public class CrawlingBurgerKingMenu {
 			Thread.sleep(1000);
 
 			List<Object> primiumList  = readProductionMenuInfo("프리미엄", 1);
-			result.add(primiumList);
+			for(Object pList:primiumList) {
+				Map<String,Object> data = (Map<String, Object>) pList;
+				result.add(data);
+			}
 			
 			Thread.sleep(1000);
 
@@ -99,7 +105,10 @@ public class CrawlingBurgerKingMenu {
 			Thread.sleep(1000);
 
 			List<Object> wapperAndBurgerList  = readProductionMenuInfo("와퍼&버거", 1);
-			result.add(wapperAndBurgerList);
+			for(Object wABList:wapperAndBurgerList) {
+				Map<String,Object> data = (Map<String, Object>) wABList;
+				result.add(data);
+			}
 			
 			Thread.sleep(1000);
 
@@ -108,7 +117,10 @@ public class CrawlingBurgerKingMenu {
 			Thread.sleep(1000);
 
 			List<Object> chickenBurgerList  = readProductionMenuInfo("치킨버거", 1);
-			result.add(chickenBurgerList);
+			for(Object cBList:chickenBurgerList) {
+				Map<String,Object> data = (Map<String, Object>) cBList;
+				result.add(data);
+			}
 			
 			Thread.sleep(1000);
 
@@ -117,7 +129,10 @@ public class CrawlingBurgerKingMenu {
 			Thread.sleep(1000);
 
 			List<Object> sideList  = readProductionMenuInfo("사이드", 1);
-			result.add(sideList);
+			for(Object sList:sideList) {
+				Map<String,Object> data = (Map<String, Object>) sList;
+				result.add(data);
+			}
 			
 			Thread.sleep(1000);
 
@@ -126,7 +141,10 @@ public class CrawlingBurgerKingMenu {
 			Thread.sleep(1000);
 
 			List<Object> drinkList  = readProductionMenuInfo("음료", 1);
-			result.add(drinkList);
+			for(Object dList:drinkList) {
+				Map<String,Object> data = (Map<String, Object>) dList;
+				result.add(data);
+			}
 
 		} catch (Exception e) {
 

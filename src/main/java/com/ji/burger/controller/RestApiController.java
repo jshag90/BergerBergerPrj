@@ -1,4 +1,4 @@
-package com.ji.burger;
+package com.ji.burger.controller;
 
 import java.io.IOException;
 import java.util.ArrayList;

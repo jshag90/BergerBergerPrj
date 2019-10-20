@@ -1,5 +1,6 @@
-package com.ji.burger;
+package com.ji.burger.controller;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -12,6 +13,8 @@ import com.google.cloud.firestore.QueryDocumentSnapshot;
 import com.google.cloud.firestore.QuerySnapshot;
 import com.google.cloud.firestore.WriteResult;
 import com.google.common.collect.ImmutableMap;
+import com.google.gson.Gson;
+import com.google.gson.JsonArray;
 import com.ji.burger.crawler.CrawlingBurgerKingMenu;
 import com.ji.burger.crawler.CrawlingKfcMenu;
 import com.ji.burger.crawler.CrawlingMacdonaldMenu;
@@ -55,56 +58,43 @@ public class FireStoreController {
 		
 		switch (docName) {
 		case "BurgerKing": {
-			// [START fs_add_data_1]
 			
 			bergerKing = new CrawlingBurgerKingMenu("jshag90@naver.com", pw);
-			ApiFuture<WriteResult> result;
-//		    CollectionReference brands = db.collection("brands");
-//		    for (Object data : bergerKing.excuteCrawl()) {
-//		    	List<Object> catagoryList=(List<Object>) data;
-//		    	for(Object info:catagoryList ) {
-//		    futures.add(brands.document("BurgerKing").set(new City("San Francisco", "CA", "USA", false, 860000L,
-//		            Arrays.asList("west_coast", "norcal"))));
-//		    }
 		    
-			DocumentReference docRef = db.collection("brands").document("BurgerKing");
-			
-			for (Object data : bergerKing.excuteCrawl()) {
-				List<Object> catagoryList=(List<Object>) data;
-				for(int i=0; i<catagoryList.size(); i++ ) {
-					Map<String,Object> crawlData = (Map<String, Object>) catagoryList.get(i);
-					System.out.println("TEST"+crawlData.get("CATEGORY"));
-					String index = String.valueOf(i)+String.valueOf(crawlData.get("CATEGORY"));
-					crawlData.put("INDEX", index);
-					result =  docRef.set(crawlData);
-//					System.out.println("Update time : " + result.get().getUpdateTime());
-				}
+			List<Object> catagoryList=(List<Object>) bergerKing.excuteCrawl();
+			int index = 1;
+			for(Object prdData: catagoryList) {
+				Map<String, Object> fieldMap = (Map<String, Object>)prdData;
+				String docNameStr = fieldMap.get("CATEGORY").toString()+"_"+String.valueOf(index++);
+				DocumentReference docRef = db.collection(docName).document(docNameStr);
+				ApiFuture<WriteResult> result = docRef.set(fieldMap);
 			}
-		    
-		    
-			// Add document data with id "alovelace" using a hashmap
-			Map<String, Object> data = new HashMap<>();
-			data.put("first", "Ada");
-			data.put("last", "Lovelace");
-			data.put("born", 1815);
-			// asynchronously write data
-//			ApiFuture<WriteResult> result = docRef.set(data);
-			// ...
-			// result.get() blocks on response
-			// [END fs_add_data_1]
+			
 			break;
+			
 		}
 		case "Macdonald": {
 			// [START fs_add_data_2]
+			
 			DocumentReference docRef = db.collection("brands").document("Macdonald");
 			// Add document data with an additional field ("middle")
-			Map<String, Object> data = new HashMap<>();
-			data.put("first", "Alan");
-			data.put("middle", "Mathison");
-			data.put("last", "Turing");
-			data.put("born", 1912);
+				List<Object> test= new ArrayList<Object>();
+				Map<String, Object> testData = new HashMap<String, Object>();
+				testData.put("data1", "aaaa");
+				testData.put("data2", "bbbb");
+				testData.put("data3", "cccc");
+				
+				test.add(testData);
+				
+				Map<String, Object> data = new HashMap<>();
+				data.put("first", "aaa");
+				data.put("middle", "aa");
+				data.put("last", "Turiaang");
+				data.put("born", 1912);
+				data.put("list", test.toString());
 
-			ApiFuture<WriteResult> result = docRef.set(data);
+				ApiFuture<WriteResult> result = docRef.set(data);
+				result.get().getUpdateTime(); //이 아이를 해줘야함
 			System.out.println("Update time : " + result.get().getUpdateTime());
 			// [END fs_add_data_2]
 			break;
@@ -169,12 +159,12 @@ public class FireStoreController {
 		addDocument(docNames[0]);
 
 		// Adding document 2
-		System.out.println("########## Adding document 2 ##########");
-		addDocument(docNames[1]);
+//		System.out.println("########## Adding document 2 ##########");
+//		addDocument(docNames[1]);
 
 		// Adding document 3
-		System.out.println("########## Adding document 3 ##########");
-		addDocument(docNames[2]);
+//		System.out.println("########## Adding document 3 ##########");
+//		addDocument(docNames[2]);
 
 		// retrieve all users born before 1900
 //		System.out.println("########## users born before 1900 ##########");

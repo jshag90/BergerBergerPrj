@@ -1,4 +1,4 @@
-package com.ji.burger;
+package com.ji.burger.controller;
 
 import com.ji.burger.crawler.CrawlingBurgerKingMenu;
 import com.ji.burger.crawler.CrawlingKfcMenu;
@@ -19,15 +19,15 @@ public class CrawlerController {
 			System.out.println(data);
 		}
 
-		macdonald = new CrawlingMacdonaldMenu("wltjsgkr90@hanmail.net", pw);
-		for (Object data : macdonald.excuteCrawl()) {
-			System.out.println(data);
-		}
+//		macdonald = new CrawlingMacdonaldMenu("wltjsgkr90@hanmail.net", pw);
+//		for (Object data : macdonald.excuteCrawl()) {
+//			System.out.println(data);
+//		}
 //		
-		kfc = new CrawlingKfcMenu();
-		for (Object data : kfc.excuteCrawl()) {
-			System.out.println(data);
-		}
+//		kfc = new CrawlingKfcMenu();
+//		for (Object data : kfc.excuteCrawl()) {
+//			System.out.println(data);
+//		}
 //		
 
 	}
