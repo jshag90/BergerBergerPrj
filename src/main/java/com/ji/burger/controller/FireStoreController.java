@@ -74,37 +74,31 @@ public class FireStoreController {
 			
 		}
 		case "Macdonald": {
-			// [START fs_add_data_2]
 			
-			DocumentReference docRef = db.collection("brands").document("Macdonald");
-			// Add document data with an additional field ("middle")
-				List<Object> test= new ArrayList<Object>();
-				Map<String, Object> testData = new HashMap<String, Object>();
-				testData.put("data1", "aaaa");
-				testData.put("data2", "bbbb");
-				testData.put("data3", "cccc");
-				
-				test.add(testData);
-				
-				Map<String, Object> data = new HashMap<>();
-				data.put("first", "aaa");
-				data.put("middle", "aa");
-				data.put("last", "Turiaang");
-				data.put("born", 1912);
-				data.put("list", test.toString());
-
-				ApiFuture<WriteResult> result = docRef.set(data);
-				result.get().getUpdateTime(); //이 아이를 해줘야함
-			System.out.println("Update time : " + result.get().getUpdateTime());
-			// [END fs_add_data_2]
+			macdonald = new CrawlingMacdonaldMenu("wltjsgkr90@hanmail.net", pw);
+		    
+			List<Object> catagoryList=(List<Object>) macdonald.excuteCrawl();
+			int index = 1;
+			for(Object prdData: catagoryList) {
+				Map<String, Object> fieldMap = (Map<String, Object>)prdData;
+				String docNameStr = fieldMap.get("CATEGORY").toString()+"_"+String.valueOf(index++);
+				DocumentReference docRef = db.collection(docName).document(docNameStr);
+				ApiFuture<WriteResult> result = docRef.set(fieldMap);
+			}
+			
 			break;
 		}
 		case "Kfc": {
-			DocumentReference docRef = db.collection("brands").document("Kfc");
-			Map<String, Object> data = new ImmutableMap.Builder<String, Object>().put("first", "Charles")
-					.put("last", "Babbage").put("born", 1791).build();
-			ApiFuture<WriteResult> result = docRef.set(data);
-			System.out.println("Update time : " + result.get().getUpdateTime());
+			
+			kfc = new CrawlingKfcMenu();
+			List<Object> catagoryList=(List<Object>) kfc.excuteCrawl();
+			int index = 1;
+			for(Object prdData: catagoryList) {
+				Map<String, Object> fieldMap = (Map<String, Object>)prdData;
+				String docNameStr = fieldMap.get("CATEGORY").toString()+"_"+String.valueOf(index++);
+				DocumentReference docRef = db.collection(docName).document(docNameStr);
+				ApiFuture<WriteResult> result = docRef.set(fieldMap);
+			}
 			break;
 		}
 		default:
@@ -159,12 +153,12 @@ public class FireStoreController {
 		addDocument(docNames[0]);
 
 		// Adding document 2
-//		System.out.println("########## Adding document 2 ##########");
-//		addDocument(docNames[1]);
+		System.out.println("########## Adding document 2 ##########");
+		addDocument(docNames[1]);
 
 		// Adding document 3
-//		System.out.println("########## Adding document 3 ##########");
-//		addDocument(docNames[2]);
+		System.out.println("########## Adding document 3 ##########");
+		addDocument(docNames[2]);
 
 		// retrieve all users born before 1900
 //		System.out.println("########## users born before 1900 ##########");
