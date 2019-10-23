@@ -1,7 +1,5 @@
 package com.ji.burger.controller;
 
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -12,12 +10,9 @@ import com.google.cloud.firestore.FirestoreOptions;
 import com.google.cloud.firestore.QueryDocumentSnapshot;
 import com.google.cloud.firestore.QuerySnapshot;
 import com.google.cloud.firestore.WriteResult;
-import com.google.common.collect.ImmutableMap;
-import com.google.gson.Gson;
-import com.google.gson.JsonArray;
-import com.ji.burger.crawler.CrawlingBurgerKingMenu;
-import com.ji.burger.crawler.CrawlingKfcMenu;
-import com.ji.burger.crawler.CrawlingMacdonaldMenu;
+import com.ji.burger.util.crawler.CrawlingBurgerKingMenu;
+import com.ji.burger.util.crawler.CrawlingKfcMenu;
+import com.ji.burger.util.crawler.CrawlingMacdonaldMenu;
 
 public class FireStoreController {
 
@@ -106,22 +101,25 @@ public class FireStoreController {
 		}
 	}
 
-	void runAQuery() throws Exception {
+	void runAQuery(String docName) throws Exception {
 		// [START fs_add_query]
 		// asynchronously query for all users born before 1900
-		ApiFuture<QuerySnapshot> query = db.collection("users").whereLessThan("born", 1900).get();
+		ApiFuture<QuerySnapshot> query = db.collection(docName).get();
 		// ...
 		// query.get() blocks on response
 		QuerySnapshot querySnapshot = query.get();
 		List<QueryDocumentSnapshot> documents = querySnapshot.getDocuments();
 		for (QueryDocumentSnapshot document : documents) {
-			System.out.println("User: " + document.getId());
-			System.out.println("First: " + document.getString("first"));
-			if (document.contains("middle")) {
-				System.out.println("Middle: " + document.getString("middle"));
-			}
-			System.out.println("Last: " + document.getString("last"));
-			System.out.println("Born: " + document.getLong("born"));
+			System.out.println(document.getData().toString());
+			
+//			System.out.println("User: " + document.getId());
+//			System.out.println("First: " + document.getString("first"));
+//			if (document.contains("middle")) {
+//				System.out.println("Middle: " + document.getString("middle"));
+//			}
+//			System.out.println("Last: " + document.getString("last"));
+//			System.out.println("Born: " + document.getLong("born"));
+			
 		}
 		// [END fs_add_query]
 	}

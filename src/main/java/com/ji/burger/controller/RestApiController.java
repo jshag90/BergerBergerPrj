@@ -1,52 +1,29 @@
 package com.ji.burger.controller;
 
-import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
-import org.jsoup.Jsoup;
-import org.jsoup.nodes.Document;
-import org.jsoup.nodes.Element;
-import org.jsoup.select.Elements;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+
+import com.ji.burger.service.GetBuergerMenuService;
 
 @RestController
 public class RestApiController {
 
-	@RequestMapping(value = "getnaversearchword")
-	public String getNaverSearchWord() {
+	@Autowired(required = false)
+	GetBuergerMenuService getBurgerMenuService;
 
-		Document doc = null;
-		String result = "";
-		List<String> resultList = new ArrayList<String>();
+	@RequestMapping(value = "getBergerMenus", method = RequestMethod.POST)
+	public Object getBergerMenus(@RequestParam("brand") String brand, 
+			@RequestParam("category") String category) {
 
-		try {
-			doc = Jsoup.connect("https://datalab.naver.com/keyword/realtimeList.naver?where=main").get();
-		} catch (IOException e1) {
+		getBurgerMenuService = new GetBuergerMenuService();
+		List<Object> result = getBurgerMenuService.getBergerMenus(brand, category);
 
-		}
-
-		Elements elements = doc.select("ul.rank_list li span");
-		List<String> keywordList20 = new ArrayList<String>();
-
-		int index = 0;
-		for (Element e : elements) {
-			index++;
-			if (index > 21) {
-				break;
-			} else {
-				keywordList20.add(e.text());
-			}
-		}
-
-		for (int rank = 1; rank < keywordList20.size(); rank++) {
-			System.out.println(rank + "위 : " + keywordList20.get(rank));
-			result = rank + "위 : " + keywordList20.get(rank);
-			resultList.add(result);
-		}
-
-		return String.valueOf(resultList);
+		return result;
 
 	}
 
