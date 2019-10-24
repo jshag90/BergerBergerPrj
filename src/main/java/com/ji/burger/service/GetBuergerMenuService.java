@@ -11,6 +11,7 @@ import com.google.api.core.ApiFuture;
 import com.google.cloud.firestore.QueryDocumentSnapshot;
 import com.google.cloud.firestore.QuerySnapshot;
 import com.google.cloud.firestore.Query.Direction;
+import com.google.firestore.v1.StructuredQuery;
 import com.ji.burger.dao.FireStoreDao;
 
 @Service
@@ -21,7 +22,7 @@ public class GetBuergerMenuService {
 
 	private String prjId = "bergerbergerprj";
 
-	public List<Object> getBergerMenus(String brand, String category) {
+	public List<Object> getBergerMenus(String brand, String category, String priceOrder) {
 		List<Object> result = new ArrayList<Object>();
 		dao = new FireStoreDao(prjId);
 
@@ -34,11 +35,13 @@ public class GetBuergerMenuService {
 		}
 
 		ApiFuture<QuerySnapshot> query;
+		Direction direction = priceOrder.equals("ASC") ? Direction.ASCENDING:Direction.DESCENDING;
+		
 		if (category.equalsIgnoreCase("all") )
 		{
-			query = dao.db.collection(brand).get();
-		}else {
-			query = dao.db.collection(brand).whereEqualTo("CATEGORY", category).orderBy("PRICE").get();
+			query = dao.db.collection(brand).orderBy("PRICE", direction).get();
+		} else {
+			query = dao.db.collection(brand).whereEqualTo("CATEGORY", category).orderBy("PRICE", direction).get();
 		}
 
 		QuerySnapshot querySnapshot;
@@ -47,9 +50,7 @@ public class GetBuergerMenuService {
 			
 			List<QueryDocumentSnapshot> documents = querySnapshot.getDocuments();
 			for (QueryDocumentSnapshot document : documents) {
-
 					result.add(document.getData());
-				
 			}
 
 		} catch (InterruptedException e) {

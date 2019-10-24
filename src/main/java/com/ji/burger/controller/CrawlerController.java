@@ -12,22 +12,22 @@ public class CrawlerController {
 
 	public static void main(String[] args) {
 
-		String pw = "goffhdn90#";
+		String pw = "##";
 
-//		bergerKing = new CrawlingBurgerKingMenu("jshag90@naver.com", pw);
-//		for (Object data : bergerKing.excuteCrawl()) {
-//			System.out.println(data);
-//		}
+		bergerKing = new CrawlingBurgerKingMenu("jshag90@naver.com", pw);
+		for (Object data : bergerKing.excuteCrawl()) {
+			System.out.println(data);
+		}
 
 		macdonald = new CrawlingMacdonaldMenu("wltjsgkr90@hanmail.net", pw);
 		for (Object data : macdonald.excuteCrawl()) {
 			System.out.println(data);
 		}
 //		
-//		kfc = new CrawlingKfcMenu();
-//		for (Object data : kfc.excuteCrawl()) {
-//			System.out.println(data);
-//		}
+		kfc = new CrawlingKfcMenu();
+		for (Object data : kfc.excuteCrawl()) {
+			System.out.println(data);
+		}
 //		
 
 	}
