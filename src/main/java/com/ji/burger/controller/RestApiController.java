@@ -15,6 +15,17 @@ public class RestApiController {
 
 	@Autowired(required = false)
 	GetBuergerMenuService getBurgerMenuService;
+	
+	@RequestMapping(value = "getBergerCategory", method = RequestMethod.POST)
+	public Object getBurgerCategory(@RequestParam("BRAND") String brand ) 
+	{
+
+		getBurgerMenuService = new GetBuergerMenuService();
+		List<Object> result = getBurgerMenuService.getBurgerCategorys(brand);
+
+		return result;
+
+	}
 
 	/**
 	 * 
