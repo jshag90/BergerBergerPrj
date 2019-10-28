@@ -16,7 +16,7 @@ public class RestApiController {
 	@Autowired(required = false)
 	GetBuergerMenuService getBurgerMenuService;
 	
-	@RequestMapping(value = "getBergerCategory", method = RequestMethod.POST)
+	@RequestMapping(value = "getBurgerCategory", method = RequestMethod.POST)
 	public Object getBurgerCategory(@RequestParam("BRAND") String brand ) 
 	{
 
@@ -34,14 +34,14 @@ public class RestApiController {
 	 * @param PRICEORDER ASC|DESC
 	 * @return
 	 */
-	@RequestMapping(value = "getBergerMenus", method = RequestMethod.POST)
-	public Object getBergerMenus(@RequestParam("BRAND") String brand, 
+	@RequestMapping(value = "getBurgerMenus", method = RequestMethod.POST)
+	public Object getBurgerMenus(@RequestParam("BRAND") String brand, 
 												  @RequestParam("CATEGORY") String category, 
 												  @RequestParam("PRICE_ORDER") String priceOrder) 
 	{
 
 		getBurgerMenuService = new GetBuergerMenuService();
-		List<Object> result = getBurgerMenuService.getBergerMenus(brand, category, priceOrder);
+		List<Object> result = getBurgerMenuService.getBurgerMenus(brand, category, priceOrder);
 
 		return result;
 

@@ -55,7 +55,7 @@ public class GetBuergerMenuService {
 		return result;
 	}
 
-	public List<Object> getBergerMenus(String brand, String category, String priceOrder) {
+	public List<Object> getBurgerMenus(String brand, String category, String priceOrder) {
 		List<Object> result = new ArrayList<Object>();
 		dao = new FireStoreDao(prjId);
 
