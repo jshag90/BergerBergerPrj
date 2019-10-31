@@ -1,29 +1,29 @@
-# burgerburgerprj
+# vf
 
-## Project setup
-```
-yarn install
-```
+Vue & Firebase lecture
 
-### Compiles and hot-reloads for development
-```
-yarn run serve
-```
+# setup
 
-### Compiles and minifies for production
-```
-yarn run build
+## dependecies install
+
+```bash
+$ yarn
 ```
 
-### Run your tests
-```
-yarn run test
+## firebase init
+
+```bash
+$ sudo npm i firebase-tools -g 
+$ firebase login
+$ firebase init hosting
+# select your project
+? Select a default Firebase project for this directory: your-project
+? What do you want to use as your public directory? dist
+? Configure as a single-page app (rewrite all urls to /index.html)? No
 ```
 
-### Lints and fixes files
-```
-yarn run lint
-```
+## firebase deploy
 
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+```bash
+$ yarn firebase:deploy
+```

@@ -1,10 +1,13 @@
 <template>
-    <lebel>케이에프씨 페이지</lebel>
+ <div>
+    kfc 카테고리
+  </div>
 </template>
 
 <script>
 export default {
-
+//   data () {
+//   }
 }
 </script>
 

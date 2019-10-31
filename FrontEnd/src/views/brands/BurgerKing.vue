@@ -1,10 +1,13 @@
 <template>
-    <lebel>맥도날드 페이지</lebel>
+ <div>
+    버거킹 카테고리
+  </div>
 </template>
 
 <script>
 export default {
-
+//   data () {
+//   }
 }
 </script>
 
