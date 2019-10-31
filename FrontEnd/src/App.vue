@@ -38,7 +38,7 @@
     </v-navigation-drawer>
     <v-toolbar color="primary" >
       <v-toolbar-side-icon @click="drawer = !drawer" class="white--text"></v-toolbar-side-icon>
-      <v-toolbar-title class="white--text">버거버거</v-toolbar-title>
+      <v-toolbar-title class="white--text">버거버거(B.B)</v-toolbar-title>
       <v-spacer></v-spacer>
       <v-toolbar-items>
         <v-btn color="primary" fab small dark href="/">
@@ -65,7 +65,7 @@ export default {
       items: [
         {
           icon: 'mdi-alert-box',
-          title: '버거킹(BurgerKing)',
+          title: '버거킹',
           active: false,
           subItems: [
             {
@@ -76,7 +76,7 @@ export default {
         },
         {
           icon: 'mdi-alert-box',
-          title: '맥도날드(Macdonalds)',
+          title: '맥도날드',
           active: false,
           subItems: [
             {
@@ -87,7 +87,7 @@ export default {
         },
         {
           icon: 'mdi-alert-box',
-          title: '케이에프씨(KFC)',
+          title: '케이에프씨',
           active: false,
           subItems: [
             {

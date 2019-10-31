@@ -1,13 +1,23 @@
 <template>
  <div>
-    kfc 카테고리
+   kfc
+     <div>{{category}}</div>
   </div>
 </template>
 
 <script>
 export default {
-//   data () {
-//   }
+  mounted() {
+     const baseURI = 'http://localhost:8080';
+      this.$http.post(`${baseURI}/getBurgerCategory`, { BRAND:"kfc" })
+      .then((result) => {
+        this.category = result.data
+      })
+  },
+  data: () =>({
+    category:''
+  })
+  
 }
 </script>
 
