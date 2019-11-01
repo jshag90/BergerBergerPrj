@@ -44,7 +44,6 @@ public class GetBuergerMenuService {
 			List<Object> tempResult = new ArrayList<Object>();
 			List<QueryDocumentSnapshot> documents = querySnapshot.getDocuments();
 			for (QueryDocumentSnapshot document : documents) {
-				System.out.println(document.getData());
 				tempResult.add(document.getData().get("CATEGORY"));
 			}
 			result = tempResult.stream().distinct().collect(Collectors.toList());

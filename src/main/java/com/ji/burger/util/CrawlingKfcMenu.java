@@ -1,4 +1,4 @@
-package com.ji.burger.util.crawler;
+package com.ji.burger.util;
 
 import java.util.ArrayList;
 import java.util.HashMap;

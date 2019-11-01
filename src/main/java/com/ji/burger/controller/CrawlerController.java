@@ -1,8 +1,8 @@
 package com.ji.burger.controller;
 
-import com.ji.burger.util.crawler.CrawlingBurgerKingMenu;
-import com.ji.burger.util.crawler.CrawlingKfcMenu;
-import com.ji.burger.util.crawler.CrawlingMacdonaldMenu;
+import com.ji.burger.util.CrawlingBurgerKingMenu;
+import com.ji.burger.util.CrawlingKfcMenu;
+import com.ji.burger.util.CrawlingMacdonaldMenu;
 
 public class CrawlerController {
 

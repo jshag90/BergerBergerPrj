@@ -10,9 +10,9 @@ import com.google.cloud.firestore.FirestoreOptions;
 import com.google.cloud.firestore.QueryDocumentSnapshot;
 import com.google.cloud.firestore.QuerySnapshot;
 import com.google.cloud.firestore.WriteResult;
-import com.ji.burger.util.crawler.CrawlingBurgerKingMenu;
-import com.ji.burger.util.crawler.CrawlingKfcMenu;
-import com.ji.burger.util.crawler.CrawlingMacdonaldMenu;
+import com.ji.burger.util.CrawlingBurgerKingMenu;
+import com.ji.burger.util.CrawlingKfcMenu;
+import com.ji.burger.util.CrawlingMacdonaldMenu;
 
 public class FireStoreController {
 
