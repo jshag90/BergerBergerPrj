@@ -1,5 +1,6 @@
 <template>
   <div>버거킹 메뉴페이지</div>
+  <!-- <div>{{ menus }}</div> -->
 </template>
 
 <script>

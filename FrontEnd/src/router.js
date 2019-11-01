@@ -39,13 +39,11 @@ export default new Router({
     },
     {
       path: '/burgerKing',
-      component: () => import('./views/brands/BurgerKing.vue'),
-      children: [
-        {
-          path: 'menus',
-          component: () => import('./views/brands/BurgerKingMenus.vue')
-        }
-      ]
+      component: () => import('./views/brands/BurgerKing.vue')
+    },
+    {
+      path: '/burgerKing/menus',
+      component: () => import('./views/brands/BurgerKingMenus.vue')
     },
     {
       path: '/macdonald',
