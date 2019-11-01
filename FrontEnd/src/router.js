@@ -39,15 +39,29 @@ export default new Router({
     },
     {
       path: '/burgerKing',
-      component: () => import('./views/brands/BurgerKing.vue')
+      component: () => import('./views/brands/BurgerKing.vue'),
+      children: [
+        {
+          path: 'menus',
+          component: () => import('./views/brands/BurgerKingMenus.vue')
+        }
+      ]
     },
     {
       path: '/macdonald',
       component: () => import('./views/brands/Macdonalds.vue')
     },
     {
+      path: '/macdonald_menus:category',
+      component: () => import('./views/brands/MacdonaldsMenus.vue')
+    },
+    {
       path: '/kfc',
       component: () => import('./views/brands/Kfc.vue')
+    },
+    {
+      path: '/kfc_menus:category',
+      component: () => import('./views/brands/KfcMenus.vue')
     },
     {
       path: '*',
