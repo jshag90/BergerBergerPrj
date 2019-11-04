@@ -1,17 +1,105 @@
 <template>
-  <div>버거킹 메뉴페이지</div>
-  <!-- <div>{{ menus }}</div> -->
+  <!-- <div>버거킹 메뉴페이지</div> -->
+  <!-- <div>{{ JSON.stringify(menus) }}</div> -->
+
+ <!-- <v-layout row>
+    <v-flex xs12 sm6 offset-sm3>
+      <v-card>
+        <v-list>
+          <v-list-tile
+            v-for="item in menus"
+            :key="item"
+            avatar
+          > -->
+
+<!--            
+             <v-list-tile-action>
+              <v-icon color="primary">mdi-chevron-right</v-icon>
+            </v-list-tile-action> -->
+
+            <!-- <v-list-tile-content>
+               <v-img :src="item.IMG"></v-img> -->
+              <!-- <v-list-tile-title v-text="item"></v-list-tile-title> -->
+            <!-- </v-list-tile-content>  -->
+<!-- 
+            <v-list-tile-avatar>
+            </v-list-tile-avatar>
+          </v-list-tile>
+        </v-list>
+      </v-card>
+    </v-flex>
+  </v-layout> -->
+
+  <v-card
+    class="mx-auto overflow-hidden"
+    max-width="500"
+    max-height="1150"
+  >
+     <v-container fluid>
+      <v-row dense>
+        <v-col
+          v-for="item in menus"
+          :key="item.NAME"
+          :cols="12"
+        >
+          <v-card  >
+             <v-row align="center" justify="center">
+            <v-img
+              :src="item.IMG"
+              class="white--text align-end lighten-2"
+              gradient="to bottom, rgba(0,0,0,.1), rgba(0,0,0,.5)"
+              aspect-ratio="1"
+              contain
+              max-height="177"
+            >
+              <!-- <v-card-title v-text="item.NAME"></v-card-title> -->
+
+             <v-container
+                    fill-height
+                    fluid
+                    pa-2
+                  >
+                    <v-layout fill-height>
+                      <v-flex xs10 align-end flexbox>
+                        <span class="headline white--text" v-text="item.NAME"></span>
+                      </v-flex>
+                   </v-layout> 
+                   
+                   <v-layout fill-height>
+                      <v-flex xs25 flexbox>
+                        <span class="headline white--text" v-text="item.PRICE"></span>
+                      </v-flex>
+                   </v-layout>
+
+
+                <!-- <v-card-title v-text="item.PRICE></v-card-title> -->
+             </v-container>
+            </v-img>
+             </v-row>
+            <v-card-actions>
+              <v-spacer></v-spacer>
+
+            </v-card-actions>
+          </v-card>
+        </v-col>
+      </v-row>
+    </v-container>
+  </v-card>
+
 </template>
 
 <script>
 export default {
    mounted() {
-      const baseURI = 'http://192.168.0.16:8080'; 
-       this.$http.post(`${baseURI}/getBurgerMenus`, { BRAND:"burgerking", CATEGORY:data, PRICE_ORDER:"ASC" })
+      const baseURI = 'http://localhost:8080'; 
+       var category = this.$route.params.category;
+       this.$http.post(`${baseURI}/getBurgerMenus`, { BRAND:"burgerking", CATEGORY:category, PRICE_ORDER:"ASC" })
       .then((result) => {
         this.menus = result.data
         console.log(this.menus)
       })
+     
+      console.log(category)
   },
   data: () =>({
     menus:[]

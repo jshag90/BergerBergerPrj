@@ -42,7 +42,8 @@ export default new Router({
       component: () => import('./views/brands/BurgerKing.vue')
     },
     {
-      path: '/burgerKing/menus',
+      path: '/burgerKing/:category',
+      name: 'burgerking_menus',
       component: () => import('./views/brands/BurgerKingMenus.vue')
     },
     {

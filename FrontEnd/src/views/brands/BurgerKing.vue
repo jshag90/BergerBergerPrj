@@ -7,8 +7,7 @@
             v-for="item in categorys"
             :key="item"
             avatar
-            @click="getMenu(item)"
-            :to="link"
+            @click="getMenuPage(item)"
           >
             <v-list-tile-action>
               <v-icon color="primary">mdi-chevron-right</v-icon>
@@ -30,7 +29,7 @@
 <script>
 export default {
   mounted() {
-      const baseURI = 'http://192.168.0.16:8080'; 
+      const baseURI = 'http://localhost:8080'; 
       this.$http.post(`${baseURI}/getBurgerCategory`, { BRAND:"burgerking" })
       .then((result) => {
         this.categorys = result.data
@@ -43,6 +42,8 @@ export default {
   }),
   methods: {
     getMenuPage(data) {
+        console.log("test"+data)
+        this.$router.push({name: "burgerking_menus", params:{"category": data}})
     }
   }
   
