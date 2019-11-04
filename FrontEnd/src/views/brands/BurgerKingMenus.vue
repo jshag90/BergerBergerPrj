@@ -1,35 +1,4 @@
 <template>
-  <!-- <div>버거킹 메뉴페이지</div> -->
-  <!-- <div>{{ JSON.stringify(menus) }}</div> -->
-
- <!-- <v-layout row>
-    <v-flex xs12 sm6 offset-sm3>
-      <v-card>
-        <v-list>
-          <v-list-tile
-            v-for="item in menus"
-            :key="item"
-            avatar
-          > -->
-
-<!--            
-             <v-list-tile-action>
-              <v-icon color="primary">mdi-chevron-right</v-icon>
-            </v-list-tile-action> -->
-
-            <!-- <v-list-tile-content>
-               <v-img :src="item.IMG"></v-img> -->
-              <!-- <v-list-tile-title v-text="item"></v-list-tile-title> -->
-            <!-- </v-list-tile-content>  -->
-<!-- 
-            <v-list-tile-avatar>
-            </v-list-tile-avatar>
-          </v-list-tile>
-        </v-list>
-      </v-card>
-    </v-flex>
-  </v-layout> -->
-
   <v-card
     class="mx-auto overflow-hidden"
     max-width="500"
@@ -52,27 +21,25 @@
               contain
               max-height="177"
             >
-              <!-- <v-card-title v-text="item.NAME"></v-card-title> -->
 
              <v-container
                     fill-height
                     fluid
                     pa-2
                   >
-                    <v-layout fill-height>
+                    <v-layout >
                       <v-flex xs10 align-end flexbox>
                         <span class="headline white--text" v-text="item.NAME"></span>
                       </v-flex>
                    </v-layout> 
-                   
-                   <v-layout fill-height>
+
+                   <v-layout >
                       <v-flex xs25 flexbox>
                         <span class="headline white--text" v-text="item.PRICE"></span>
                       </v-flex>
                    </v-layout>
 
 
-                <!-- <v-card-title v-text="item.PRICE></v-card-title> -->
              </v-container>
             </v-img>
              </v-row>
