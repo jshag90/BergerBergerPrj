@@ -43,7 +43,7 @@ export default new Router({
     },
     {
       path: '/burgerKing/:category',
-      name: 'burgerking_menus',
+      name: 'burgerkingMenus',
       component: () => import('./views/brands/BurgerKingMenus.vue')
     },
     {
@@ -51,7 +51,7 @@ export default new Router({
       component: () => import('./views/brands/Macdonalds.vue')
     },
     {
-      path: '/macdonald_menus:category',
+      path: '/macdonald/:category',
       component: () => import('./views/brands/MacdonaldsMenus.vue')
     },
     {
@@ -59,7 +59,7 @@ export default new Router({
       component: () => import('./views/brands/Kfc.vue')
     },
     {
-      path: '/kfc_menus:category',
+      path: '/kfc/:category',
       component: () => import('./views/brands/KfcMenus.vue')
     },
     {

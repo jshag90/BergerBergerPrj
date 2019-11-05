@@ -42,8 +42,7 @@ export default {
   }),
   methods: {
     getMenuPage(data) {
-        console.log("test"+data)
-        this.$router.push({name: "burgerking_menus", params:{"category": data}})
+        this.$router.push({name: "burgerkingMenus", params:{"category": data}})
     }
   }
   
