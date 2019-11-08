@@ -7,7 +7,7 @@
             v-for="item in categorys"
             :key="item"
             avatar
-            @click="getMenu(item)"
+            @click="getMenuPage(item)"
           >
              <v-list-tile-action>
               <v-icon color="primary">mdi-chevron-right</v-icon>
@@ -36,8 +36,15 @@ export default {
       })
   },
   data: () =>({
-    categorys:[]
-  })
+    categorys:[],
+    menus:[],
+    link:'/kfc/menus'
+  }),
+  methods: {
+    getMenuPage(data) {
+        this.$router.push({name: "kfcMenus", params:{"category": data}})
+    }
+  }
   
 }
 </script>

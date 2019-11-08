@@ -60,6 +60,7 @@ export default new Router({
     },
     {
       path: '/kfc/:category',
+      name: 'kfcMenus',
       component: () => import('./views/brands/KfcMenus.vue')
     },
     {
