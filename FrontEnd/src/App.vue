@@ -2,7 +2,7 @@
   <v-app>
     <v-navigation-drawer v-model="drawer" fixed app >
       <v-toolbar color="primary" >
-        <v-toolbar-title  class="white--text" > 
+        <v-toolbar-title  class="white--text"> 
         </v-toolbar-title>
       </v-toolbar>
       <v-list>
@@ -41,6 +41,11 @@
       <v-toolbar-title class="white--text">버거버거(B.B)</v-toolbar-title>
       <v-spacer></v-spacer>
       <v-toolbar-items>
+         <v-btn color="primary" fab small dark @click="goToCategory()" v-if="visible">
+                  <span class="group pa-2">
+                    <v-icon>mdi-arrow-left-bold</v-icon>
+                  </span>
+        </v-btn>
         <v-btn color="primary" fab small dark href="/">
                   <span class="group pa-2">
                     <v-icon>mdi-home</v-icon>
@@ -51,6 +56,7 @@
 
     <v-content>
       <router-view/>
+
     </v-content>
   </v-app>
 </template>
@@ -62,47 +68,92 @@ export default {
   data () {
     return {
       drawer: false,
+      visible: false,
       items: [
         {
           icon: 'mdi-alert-box',
-          title: '버거킹',
-          active: false,
+          title: '버거킹(BurgerKing)',
+          active: true,
           subItems: [
             {
-              title: '버거킹',
-              to: '/burgerKing'
+              title: '사이드',
+              to:'/burgerKing/사이드'
+            },
+            {
+              title: '스폐셜',
+              to:'/burgerKing/스폐셜'
+            },
+            {
+              title: '와퍼&버거',
+              to:'/burgerKing/와퍼&버거'
+            },
+            {
+              title: '음료',
+              to:'/burgerKing/음료'
+            },
+            {
+              title: '치킨버거',
+              to:'/burgerKing/치킨버거'
+            },
+            {
+              title: '프리미엄',
+              to:'/burgerKing/프리미엄'
             }
           ]
         },
         {
           icon: 'mdi-alert-box',
-          title: '맥도날드',
+          title: '맥도날드(Mcdonalds)',
           active: false,
           subItems: [
+             {
+              title: '디저트',
+              to:'/macdonald/디저트'
+            },
             {
-              title: 'card',
-              to: '/lectures/card'
+              title: '버거&세트',
+              to:'/macdonald/버거&세트'
+            },
+            {
+              title: '스낵&사이드',
+              to:'/macdonald/스낵&사이드'
+            },
+            {
+              title: '음료',
+              to:'/macdonald/음료'
+            },
+            {
+              title: '해피밀®',
+              to:'/macdonald/해피밀®'
             }
           ]
         },
         {
           icon: 'mdi-alert-box',
-          title: '케이에프씨',
+          title: '케이에프씨(KFC)',
           active: false,
           subItems: [
             {
-              title: 'card',
-              to: '/lectures/card'
+              title: '버거&세트',
+              to:'/kfc/버거&세트'
+            },
+            {
+              title: '스낵&사이드',
+              to:'/kfc/스낵&사이드'
+            },
+            {
+              title: '음료',
+              to:'/kfc/음료'
+            },
+            {
+              title: '치킨&세트',
+              to:'/kfc/치킨&세트'
             }
           ]
         }
       ]
     }
-  },
-  methods: {
-    test () {
-
-    }
   }
+ 
 }
 </script>

@@ -44,7 +44,11 @@ export default new Router({
     {
       path: '/burgerKing/:category',
       name: 'burgerkingMenus',
-      component: () => import('./views/brands/BurgerKingMenus.vue')
+      component: () => import('./views/brands/BurgerKingMenus.vue'),
+      beforeRouteUpdate (to, from, next) {
+        // this.category = to.params.category
+        next()
+      }
     },
     {
       path: '/macdonald',
@@ -52,6 +56,7 @@ export default new Router({
     },
     {
       path: '/macdonald/:category',
+      name: 'macdonaldMenus',
       component: () => import('./views/brands/MacdonaldsMenus.vue')
     },
     {

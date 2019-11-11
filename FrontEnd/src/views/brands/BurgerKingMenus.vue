@@ -3,10 +3,13 @@
     class="mx-auto overflow-hidden"
     max-width="500"
   >
+        
     <v-container
           fluid
           grid-list-md
         >
+
+        
 
         <v-layout row wrap>
             <v-flex
@@ -14,6 +17,7 @@
                :key="item.NAME"
                v-bind="{ [`xs12`]: true }"
             >
+
 
           <v-card>
             <v-img
@@ -45,19 +49,18 @@
           </v-card>
             </v-flex>
             </v-layout>
+
     </v-container>
   </v-card>
 </template>
 
 <script>
+// import App from '../App.vue'
+
 export default {
    mounted() {
-      const baseURI = 'http://localhost:8080'; 
-       var category = this.$route.params.category;
-       this.$http.post(`${baseURI}/getBurgerMenus`, { BRAND:"burgerking", CATEGORY:category, PRICE_ORDER:"ASC" })
-      .then((result) => {
-        this.menus = result.data
-      })
+       this.callGetBurgerMenusAxios()
+      //  App.$emit('visible',true)
   },
   data: () =>({
     menus:[]
@@ -65,6 +68,19 @@ export default {
   methods: {
     priceFormatter(data){
       return data.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")+"원";
+    }, 
+    callGetBurgerMenusAxios(){
+       const baseURI = 'http://localhost:8080'; 
+       var category = this.$route.params.category;
+       this.$http.post(`${baseURI}/getBurgerMenus`, { BRAND:"burgerking", CATEGORY:category, PRICE_ORDER:"ASC" })
+      .then((result) => {
+        this.menus = result.data
+      })
+    }
+  },
+  watch: {
+    $route(to, from) {
+       this.callGetBurgerMenusAxios()
     }
   }
 

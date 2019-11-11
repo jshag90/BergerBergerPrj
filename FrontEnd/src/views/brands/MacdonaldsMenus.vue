@@ -52,12 +52,7 @@
 <script>
 export default {
    mounted() {
-      const baseURI = 'http://localhost:8080'; 
-       var category = this.$route.params.category;
-       this.$http.post(`${baseURI}/getBurgerMenus`, { BRAND:"macdonald", CATEGORY:category, PRICE_ORDER:"ASC" })
-      .then((result) => {
-        this.menus = result.data
-      })
+     this.callGetBurgerMenusAxios()
   },
   data: () =>({
     menus:[]
@@ -65,6 +60,19 @@ export default {
   methods: {
     priceFormatter(data){
       return data.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")+"원";
+    },
+     callGetBurgerMenusAxios(){
+       const baseURI = 'http://localhost:8080'; 
+       var category = this.$route.params.category;
+       this.$http.post(`${baseURI}/getBurgerMenus`, { BRAND:"macdonald", CATEGORY:category, PRICE_ORDER:"ASC" })
+      .then((result) => {
+        this.menus = result.data
+      })
+     }
+  },
+  watch: {
+    $route(to, from) {
+       this.callGetBurgerMenusAxios()
     }
   }
 
