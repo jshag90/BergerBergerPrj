@@ -41,7 +41,7 @@
       <v-toolbar-title class="white--text">버거버거(B.B)</v-toolbar-title>
       <v-spacer></v-spacer>
       <v-toolbar-items>
-         <v-btn color="primary" fab small dark @click="goToCategory()" v-if="visible">
+         <v-btn color="primary" fab small dark @click="goToCategory()" v-if=visible >
                   <span class="group pa-2">
                     <v-icon>mdi-arrow-left-bold</v-icon>
                   </span>
@@ -54,21 +54,36 @@
       </v-toolbar-items>
     </v-toolbar>
 
-    <v-content>
-      <router-view/>
-
+    <v-content >
+      <router-view @isVisibleBackBtn="isVisibleBackBtn"/>
     </v-content>
   </v-app>
 </template>
 
 <script>
+import BurgerKingMenus from './views/brands/BurgerKingMenus.vue'
+import BurgerKing from './views/brands/BurgerKing.vue'
+import KfcMenus from './views/brands/KfcMenus.vue'
+import Kfc from './views/brands/Kfc.vue'
+import MacdonaldsMenus from './views/brands/MacdonaldsMenus.vue'
+import Macdonalds from './views/brands/Macdonalds.vue'
 
 export default {
   name: 'App',
+  components: {
+    BurgerKingMenus,
+    BurgerKing,
+    KfcMenus,
+    Kfc,
+    MacdonaldsMenus,
+    Macdonalds
+  },
   data () {
     return {
       drawer: false,
       visible: false,
+      backBtnUrl: '',
+      baseURI: 'http://localhost:8080',
       items: [
         {
           icon: 'mdi-alert-box',
@@ -152,6 +167,16 @@ export default {
           ]
         }
       ]
+    }
+  },
+  methods: {
+    goToCategory(data) {
+        this.$router.push(this.backBtnUrl)
+        this.visible = false
+    },
+    isVisibleBackBtn(data) {
+      this.visible=data.isVisible == "1"?true:false
+      this.backBtnUrl = data.link
     }
   }
  

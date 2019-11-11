@@ -5,6 +5,7 @@
     max-height="1150"
   >
      <v-container fluid>
+       
       <v-row dense>
         <v-col
           v-for="card in cards"
@@ -26,22 +27,11 @@
              </v-row>
             <v-card-actions>
               <v-spacer></v-spacer>
-
-              <!-- <v-btn icon>
-                <v-icon>mdi-heart</v-icon>
-              </v-btn>
-
-              <v-btn icon>
-                <v-icon>mdi-bookmark</v-icon>
-              </v-btn>
-
-              <v-btn icon>
-                <v-icon>mdi-share-variant</v-icon>
-              </v-btn> -->
             </v-card-actions>
           </v-card>
         </v-col>
       </v-row>
+
     </v-container>
   </v-card>
 </template>

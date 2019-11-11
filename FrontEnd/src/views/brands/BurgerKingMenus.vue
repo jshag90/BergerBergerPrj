@@ -3,13 +3,10 @@
     class="mx-auto overflow-hidden"
     max-width="500"
   >
-        
     <v-container
           fluid
           grid-list-md
         >
-
-        
 
         <v-layout row wrap>
             <v-flex
@@ -17,7 +14,6 @@
                :key="item.NAME"
                v-bind="{ [`xs12`]: true }"
             >
-
 
           <v-card>
             <v-img
@@ -55,12 +51,14 @@
 </template>
 
 <script>
-// import App from '../App.vue'
-
 export default {
-   mounted() {
-       this.callGetBurgerMenusAxios()
-      //  App.$emit('visible',true)
+  props: { visible: Boolean },
+  mounted() {
+      let param = new Object();
+      param.isVisible = "1";
+      param.link = "/burgerKing";
+      this.$emit("isVisibleBackBtn",param)
+      this.callGetBurgerMenusAxios()
   },
   data: () =>({
     menus:[]

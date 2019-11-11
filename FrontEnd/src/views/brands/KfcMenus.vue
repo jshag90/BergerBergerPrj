@@ -52,7 +52,11 @@
 <script>
 export default {
    mounted() {
-       this.callGetBurgerMenusAxios()
+      let param = new Object();
+      param.isVisible = "1";
+      param.link = "/kfc";
+      this.$emit("isVisibleBackBtn",param)
+      this.callGetBurgerMenusAxios()
   },
   data: () =>({
     menus:[]

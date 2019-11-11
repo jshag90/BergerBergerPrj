@@ -51,7 +51,12 @@
 
 <script>
 export default {
+  props: { visible: Boolean },
    mounted() {
+    let param = new Object();
+     param.isVisible = "1";
+     param.link = "/macdonald";
+     this.$emit("isVisibleBackBtn",param)
      this.callGetBurgerMenusAxios()
   },
   data: () =>({
