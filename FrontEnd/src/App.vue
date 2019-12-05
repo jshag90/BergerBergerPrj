@@ -38,7 +38,7 @@
     </v-navigation-drawer>
     <v-toolbar color="primary" >
       <v-toolbar-side-icon @click="drawer = !drawer" class="white--text"></v-toolbar-side-icon>
-      <v-toolbar-title class="white--text">버거버거(B.B)</v-toolbar-title>
+      <v-toolbar-title class="white--text">버거버거</v-toolbar-title>
       <v-spacer></v-spacer>
       <v-toolbar-items>
          <v-btn color="primary" fab small dark @click="goToCategory()" v-if=visible >
@@ -55,7 +55,37 @@
     </v-toolbar>
 
     <v-content >
-      <router-view @isVisibleBackBtn="isVisibleBackBtn"/>
+      <router-view @isVisibleBackBtn="isVisibleBackBtn" :orderBy="this.orderBy"/>
+       <v-fab-transition >
+        <v-btn
+          @click="changeOrderBy('DESC')"
+          color="primary"
+          dark
+          fab
+          fixed
+          bottom
+          right
+          v-if=visible
+        >
+          <v-icon>mdi-sort-ascending</v-icon>
+        </v-btn>
+      </v-fab-transition>
+
+      <v-fab-transition >
+        <v-btn
+          @click="changeOrderBy('ASC')"
+          color="primary"
+          dark
+          fab
+          fixed
+          bottom
+          left
+          v-if=visible
+        >
+          <v-icon>mdi-sort-descending</v-icon>
+        </v-btn>
+      </v-fab-transition>
+
     </v-content>
   </v-app>
 </template>
@@ -80,15 +110,18 @@ export default {
   },
   data () {
     return {
+      fab: false,
+      hidden: false,
       drawer: false,
       visible: false,
       backBtnUrl: '',
       baseURI: 'http://localhost:8080',
+      orderBy: 'ASC',
       items: [
         {
           icon: 'mdi-alert-box',
           title: '버거킹(BurgerKing)',
-          active: true,
+          active: false,
           subItems: [
             {
               title: '사이드',
@@ -177,7 +210,13 @@ export default {
     isVisibleBackBtn(data) {
       this.visible=data.isVisible == "1"?true:false
       this.backBtnUrl = data.link
+    },
+    changeOrderBy(data){
+      // callGetBurgerMenusAxios(data)
+      this.orderBy = data
+      console.log(this.orderBy)
     }
+    
   }
  
 }

@@ -66,7 +66,7 @@ export default {
       return data.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")+"원";
     },
     callGetBurgerMenusAxios(){
-      const baseURI = 'http://localhost:8080'; 
+      const baseURI = 'http://35.241.87.161:8080'; 
        var category = this.$route.params.category;
        this.$http.post(`${baseURI}/getBurgerMenus`, { BRAND:"kfc", CATEGORY:category, PRICE_ORDER:"ASC" })
       .then((result) => {

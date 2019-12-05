@@ -29,7 +29,7 @@
 <script>
 export default {
   mounted() {
-     const baseURI = 'http://localhost:8080';
+     const baseURI = 'http://35.241.87.161:8080';
       this.$http.post(`${baseURI}/getBurgerCategory`, { BRAND:"kfc" })
       .then((result) => {
        this.categorys = result.data

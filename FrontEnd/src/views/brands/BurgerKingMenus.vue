@@ -3,6 +3,7 @@
     class="mx-auto overflow-hidden"
     max-width="500"
   >
+
     <v-container
           fluid
           grid-list-md
@@ -43,6 +44,7 @@
               <span class="headline" v-text="priceFormatter(item.PRICE)"></span>
             </v-card-actions>
           </v-card>
+
             </v-flex>
             </v-layout>
 
@@ -52,34 +54,39 @@
 
 <script>
 export default {
-  props: { visible: Boolean },
+  props: { visible: Boolean, orderBy: String  },
   mounted() {
+      console.log("자식 : "+ this.orderBy)
       let param = new Object();
       param.isVisible = "1";
       param.link = "/burgerKing";
       this.$emit("isVisibleBackBtn",param)
-      this.callGetBurgerMenusAxios()
+      this.callGetBurgerMenusAxios('ASC')
   },
   data: () =>({
-    menus:[]
+    menus:[],
+
   }),
   methods: {
     priceFormatter(data){
       return data.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")+"원";
     }, 
-    callGetBurgerMenusAxios(){
-       const baseURI = 'http://localhost:8080'; 
+    callGetBurgerMenusAxios(order){
+      const baseURI = 'http://35.241.87.161:8080'; 
        var category = this.$route.params.category;
-       this.$http.post(`${baseURI}/getBurgerMenus`, { BRAND:"burgerking", CATEGORY:category, PRICE_ORDER:"ASC" })
+       this.$http.post(`${baseURI}/getBurgerMenus`, { BRAND:"burgerking", CATEGORY:category, PRICE_ORDER:order})
       .then((result) => {
         this.menus = result.data
       })
     }
+   
+
   },
   watch: {
     $route(to, from) {
-       this.callGetBurgerMenusAxios()
+       this.callGetBurgerMenusAxios(this.orderBy)
     }
+
   }
 
 }

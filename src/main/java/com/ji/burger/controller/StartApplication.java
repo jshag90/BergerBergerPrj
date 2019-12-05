@@ -2,21 +2,19 @@ package com.ji.burger.controller;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.builder.SpringApplicationBuilder;
+import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
 
 @SpringBootApplication
-public class StartApplication {
-
-//	@Value("${password}")
-//	private static String password;
+public class StartApplication extends SpringBootServletInitializer {
 
 	public static void main(String[] args) {
-
-//		System.out.println(password);
-//		SeleniumTest2 selTest = new SeleniumTest2();
-//		selTest.crawl();
-//		System.out.println(password);
 		SpringApplication.run(StartApplication.class, args);
-
 	}
 
+	@Override
+	protected SpringApplicationBuilder configure(SpringApplicationBuilder builder) {
+		return builder.sources(StartApplication.class);
+	}
+	
 }
