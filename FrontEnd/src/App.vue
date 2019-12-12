@@ -56,36 +56,6 @@
 
     <v-content >
       <router-view @isVisibleBackBtn="isVisibleBackBtn" :orderBy="this.orderBy"/>
-       <v-fab-transition >
-        <v-btn
-          @click="changeOrderBy('DESC')"
-          color="primary"
-          dark
-          fab
-          fixed
-          bottom
-          right
-          v-if=visible
-        >
-          <v-icon>mdi-sort-ascending</v-icon>
-        </v-btn>
-      </v-fab-transition>
-
-      <v-fab-transition >
-        <v-btn
-          @click="changeOrderBy('ASC')"
-          color="primary"
-          dark
-          fab
-          fixed
-          bottom
-          left
-          v-if=visible
-        >
-          <v-icon>mdi-sort-descending</v-icon>
-        </v-btn>
-      </v-fab-transition>
-
     </v-content>
   </v-app>
 </template>
@@ -116,7 +86,7 @@ export default {
       visible: false,
       backBtnUrl: '',
       baseURI: 'http://localhost:8080',
-      orderBy: 'ASC',
+      orderBy: '',
       items: [
         {
           icon: 'mdi-alert-box',
@@ -210,13 +180,7 @@ export default {
     isVisibleBackBtn(data) {
       this.visible=data.isVisible == "1"?true:false
       this.backBtnUrl = data.link
-    },
-    changeOrderBy(data){
-      // callGetBurgerMenusAxios(data)
-      this.orderBy = data
-      console.log(this.orderBy)
     }
-    
   }
  
 }

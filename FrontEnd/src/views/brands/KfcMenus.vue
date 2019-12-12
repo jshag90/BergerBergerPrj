@@ -45,6 +45,37 @@
           </v-card>
             </v-flex>
             </v-layout>
+
+             <v-fab-transition >
+        <v-btn
+          @click="callGetBurgerMenusAxios('DESC')"
+          color="primary"
+          dark
+          fab
+          fixed
+          bottom
+          right
+          v-if="this.showAscBtn"
+        >
+          <v-icon>mdi-sort-ascending</v-icon>
+        </v-btn>
+      </v-fab-transition>
+
+      <v-fab-transition >
+        <v-btn
+          @click="callGetBurgerMenusAxios('ASC')"
+          color="primary"
+          dark
+          fab
+          fixed
+          bottom
+          right
+          v-if="this.showDescBtn"
+        >
+          <v-icon>mdi-sort-descending</v-icon>
+        </v-btn>
+      </v-fab-transition>
+
     </v-container>
   </v-card>
 </template>
@@ -56,27 +87,39 @@ export default {
       param.isVisible = "1";
       param.link = "/kfc";
       this.$emit("isVisibleBackBtn",param)
-      this.callGetBurgerMenusAxios()
+      this.callGetBurgerMenusAxios('ASC')
   },
   data: () =>({
-    menus:[]
+    menus:[],
+    showDescBtn: true,
+    showAscBtn: false
   }),
   methods: {
     priceFormatter(data){
       return data.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")+"원";
     },
-    callGetBurgerMenusAxios(){
+    callGetBurgerMenusAxios(order){
       const baseURI = 'http://35.241.87.161:8080'; 
        var category = this.$route.params.category;
-       this.$http.post(`${baseURI}/getBurgerMenus`, { BRAND:"kfc", CATEGORY:category, PRICE_ORDER:"ASC" })
+       this.$http.post(`${baseURI}/getBurgerMenus`, { BRAND:"kfc", CATEGORY:category, PRICE_ORDER:order})
       .then((result) => {
         this.menus = result.data
       })
+
+      
+      if(order === 'ASC'){
+          this.showAscBtn = true
+           this.showDescBtn = false
+      }else{
+          this.showAscBtn = false
+          this.showDescBtn = true
+      }
+
     }
   },
   watch: {
     $route(to, from) {
-       this.callGetBurgerMenusAxios()
+       this.callGetBurgerMenusAxios('ASC')
     }
   }
 

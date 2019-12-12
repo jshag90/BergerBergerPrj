@@ -48,15 +48,44 @@
             </v-flex>
             </v-layout>
 
+      <v-fab-transition >
+        <v-btn
+          @click="callGetBurgerMenusAxios('DESC')"
+          color="primary"
+          dark
+          fab
+          fixed
+          bottom
+          right
+          v-if="this.showAscBtn"
+        >
+          <v-icon>mdi-sort-ascending</v-icon>
+        </v-btn>
+      </v-fab-transition>
+
+      <v-fab-transition >
+        <v-btn
+          @click="callGetBurgerMenusAxios('ASC')"
+          color="primary"
+          dark
+          fab
+          fixed
+          bottom
+          right
+          v-if="this.showDescBtn"
+        >
+          <v-icon>mdi-sort-descending</v-icon>
+        </v-btn>
+      </v-fab-transition>
+
     </v-container>
   </v-card>
 </template>
 
 <script>
 export default {
-  props: { visible: Boolean, orderBy: String  },
+  props: { visible: Boolean },
   mounted() {
-      console.log("자식 : "+ this.orderBy)
       let param = new Object();
       param.isVisible = "1";
       param.link = "/burgerKing";
@@ -65,7 +94,8 @@ export default {
   },
   data: () =>({
     menus:[],
-
+    showDescBtn: true,
+    showAscBtn: false
   }),
   methods: {
     priceFormatter(data){
@@ -78,13 +108,21 @@ export default {
       .then((result) => {
         this.menus = result.data
       })
+
+      if(order === 'ASC'){
+          this.showAscBtn = true
+           this.showDescBtn = false
+      }else{
+          this.showAscBtn = false
+          this.showDescBtn = true
+      }
+
     }
-   
 
   },
   watch: {
     $route(to, from) {
-       this.callGetBurgerMenusAxios(this.orderBy)
+       this.callGetBurgerMenusAxios('ASC')
     }
 
   }
